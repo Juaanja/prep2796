@@ -7,64 +7,65 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      background-color: #4A231C; /* Terracota Profundo */
-      color: #FDF9F2;            /* Vainilla */
+      background-color: #0B1313; /* Negro Abisal Frío */
+      color: #F2FAF9;            /* Blanco Hielo */
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     }
 
     /* Tarjeta principal */
     .card-modal {
-      background-color: #5C2E24; /* Terracota más claro */
-      border: 1px solid #753b2f;
-      box-shadow: 0 20px 45px -10px rgba(25, 10, 8, 0.7);
+      background-color: #132020; /* Pino Sombrío */
+      border: 1px solid #1F3333;
+      box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.8);
     }
 
-    /* Barra superior de acento */
+    /* Barra superior con gradiente Menta Glaciar */
     .top-gradient-bar {
       height: 4px;
-      background: linear-gradient(90deg, #D86A51 0%, #f09580 60%, transparent 100%);
+      background: linear-gradient(90deg, #2DD4BF 0%, #14B8A6 60%, transparent 100%);
     }
 
-    /* Cajas de inputs y selects */
+    /* Inputs y desplegables */
     .input-box {
-      background-color: #3d1b15;
-      border: 1px solid #6b352b;
-      color: #FDF9F2;
+      background-color: #0E1717;
+      border: 1px solid #1F3333;
+      color: #F2FAF9;
+      transition: all 0.2s ease;
     }
     .input-box:focus {
       outline: none;
-      border-color: #D86A51;
-      box-shadow: 0 0 0 2px rgba(216, 106, 81, 0.35);
+      border-color: #2DD4BF;
+      box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.25);
     }
 
     /* Botones de alianzas */
     .badge-btn {
-      background-color: #451f18;
-      color: #e5d7cc;
-      border: 1px solid #633227;
+      background-color: #182828;
+      color: #9ab4b2;
+      border: 1px solid #233a3a;
       transition: all 0.2s ease;
     }
     .badge-btn:hover {
-      background-color: #D86A51;
-      color: #FDF9F2;
-      border-color: #D86A51;
+      background-color: #1F3333;
+      color: #2DD4BF;
+      border-color: #2DD4BF;
     }
     .badge-selected {
-      background-color: #D86A51 !important;
-      color: #FDF9F2 !important;
+      background-color: #2DD4BF !important;
+      color: #0B1313 !important;
       font-weight: 700;
-      border-color: #FDF9F2 !important;
+      border-color: #2DD4BF !important;
     }
 
-    /* Botón de envío */
+    /* Botón principal de envío */
     .btn-action {
-      background-color: #D86A51;
-      color: #FDF9F2;
-      transition: background-color 0.2s ease, color 0.2s ease;
+      background-color: #2DD4BF;
+      color: #0B1313;
+      transition: background-color 0.2s ease, transform 0.1s ease;
     }
     .btn-action:hover {
-      background-color: #FDF9F2;
-      color: #4A231C;
+      background-color: #14B8A6;
+      color: #ffffff;
     }
 
     /* Cajas contenedoras de iconos */
@@ -76,18 +77,18 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      background-color: #411d16;
-      border: 1px solid #663328;
+      background-color: #0E1717;
+      border: 1px solid #1F3333;
     }
 
-    /* Opciones deshabilitadas en selects */
+    /* Opciones dentro de los selects */
     option {
-      background-color: #3d1b15;
-      color: #FDF9F2;
+      background-color: #0E1717;
+      color: #F2FAF9;
     }
     option:disabled {
-      color: #9d7b73;
-      background-color: #2b130e;
+      color: #4d6664;
+      background-color: #080d0d;
     }
   </style>
 </head>
@@ -98,36 +99,36 @@
 
     <!-- Barra de 9 Idiomas -->
     <div class="flex justify-between items-center px-6 pt-5 pb-2">
-      <div class="flex items-center gap-1 bg-[#3d1b15] p-1.5 rounded-lg border border-[#6b352b] flex-wrap">
-        <button type="button" onclick="setLanguage('es')" id="lang-es" class="px-2 py-1 text-xs rounded font-bold transition bg-[#D86A51] text-[#FDF9F2]">🇪🇸 ES</button>
-        <button type="button" onclick="setLanguage('en')" id="lang-en" class="px-2 py-1 text-xs rounded font-bold transition text-[#d5beba] hover:text-white">🇬🇧 EN</button>
-        <button type="button" onclick="setLanguage('fr')" id="lang-fr" class="px-2 py-1 text-xs rounded font-bold transition text-[#d5beba] hover:text-white">🇫🇷 FR</button>
-        <button type="button" onclick="setLanguage('de')" id="lang-de" class="px-2 py-1 text-xs rounded font-bold transition text-[#d5beba] hover:text-white">🇩🇪 DE</button>
-        <button type="button" onclick="setLanguage('ru')" id="lang-ru" class="px-2 py-1 text-xs rounded font-bold transition text-[#d5beba] hover:text-white">🇷🇺 RU</button>
-        <button type="button" onclick="setLanguage('ko')" id="lang-ko" class="px-2 py-1 text-xs rounded font-bold transition text-[#d5beba] hover:text-white">🇰🇷 KO</button>
-        <button type="button" onclick="setLanguage('pl')" id="lang-pl" class="px-2 py-1 text-xs rounded font-bold transition text-[#d5beba] hover:text-white">🇵🇱 PL</button>
-        <button type="button" onclick="setLanguage('id')" id="lang-id" class="px-2 py-1 text-xs rounded font-bold transition text-[#d5beba] hover:text-white">🇮🇩 ID</button>
-        <button type="button" onclick="setLanguage('el')" id="lang-el" class="px-2 py-1 text-xs rounded font-bold transition text-[#d5beba] hover:text-white">🇬🇷 EL</button>
+      <div class="flex items-center gap-1 bg-[#0E1717] p-1.5 rounded-lg border border-[#1F3333] flex-wrap">
+        <button type="button" onclick="setLanguage('es')" id="lang-es" class="px-2 py-1 text-xs rounded font-bold transition bg-[#2DD4BF] text-[#0B1313]">🇪🇸 ES</button>
+        <button type="button" onclick="setLanguage('en')" id="lang-en" class="px-2 py-1 text-xs rounded font-bold transition text-[#7E9F9D] hover:text-white">🇬🇧 EN</button>
+        <button type="button" onclick="setLanguage('fr')" id="lang-fr" class="px-2 py-1 text-xs rounded font-bold transition text-[#7E9F9D] hover:text-white">🇫🇷 FR</button>
+        <button type="button" onclick="setLanguage('de')" id="lang-de" class="px-2 py-1 text-xs rounded font-bold transition text-[#7E9F9D] hover:text-white">🇩🇪 DE</button>
+        <button type="button" onclick="setLanguage('ru')" id="lang-ru" class="px-2 py-1 text-xs rounded font-bold transition text-[#7E9F9D] hover:text-white">🇷🇺 RU</button>
+        <button type="button" onclick="setLanguage('ko')" id="lang-ko" class="px-2 py-1 text-xs rounded font-bold transition text-[#7E9F9D] hover:text-white">🇰🇷 KO</button>
+        <button type="button" onclick="setLanguage('pl')" id="lang-pl" class="px-2 py-1 text-xs rounded font-bold transition text-[#7E9F9D] hover:text-white">🇵🇱 PL</button>
+        <button type="button" onclick="setLanguage('id')" id="lang-id" class="px-2 py-1 text-xs rounded font-bold transition text-[#7E9F9D] hover:text-white">🇮🇩 ID</button>
+        <button type="button" onclick="setLanguage('el')" id="lang-el" class="px-2 py-1 text-xs rounded font-bold transition text-[#7E9F9D] hover:text-white">🇬🇷 EL</button>
       </div>
-      <div class="w-7 h-7 rounded-full bg-[#3d1b15] flex items-center justify-center text-[#d5beba] text-xs">✕</div>
+      <div class="w-7 h-7 rounded-full bg-[#0E1717] flex items-center justify-center text-[#7E9F9D] text-xs">✕</div>
     </div>
 
     <!-- Pantalla de Convocatoria Cerrada -->
     <div id="closedNotice" class="p-10 text-center hidden">
       <div class="text-5xl mb-4">🔒</div>
-      <h2 id="t-closedTitle" class="text-xl font-bold text-[#FDF9F2] mb-2">Convocatoria Cerrada</h2>
-      <p id="t-closedDesc" class="text-[#e2ceca] text-sm max-w-md mx-auto">El plazo de inscripción ha finalizado o aún no se encuentra abierto. Las asignaciones de horarios se publicarán pronto.</p>
+      <h2 id="t-closedTitle" class="text-xl font-bold text-[#F2FAF9] mb-2">Convocatoria Cerrada</h2>
+      <p id="t-closedDesc" class="text-[#7E9F9D] text-sm max-w-md mx-auto">El plazo de inscripción ha finalizado o aún no se encuentra abierto. Las asignaciones de horarios se publicarán pronto.</p>
     </div>
 
     <!-- Contenido del Formulario -->
     <div id="formContainer" class="px-6 pb-6 pt-2">
-      <h1 id="t-title" class="text-xl sm:text-2xl font-bold text-center mb-5 text-[#FDF9F2] tracking-wide">Semana de Preparación del estado 2796</h1>
+      <h1 id="t-title" class="text-xl sm:text-2xl font-bold text-center mb-5 text-[#F2FAF9] tracking-wide">Semana de Preparación del estado 2796</h1>
 
       <form id="savingsForm" class="space-y-5">
         
         <!-- Nombre Jugador / ID -->
         <div>
-          <label id="t-playerName" class="block text-[11px] uppercase tracking-wider text-[#e6d0cc] font-semibold mb-1.5">Nombre del Jugador o ID</label>
+          <label id="t-playerName" class="block text-[11px] uppercase tracking-wider text-[#7E9F9D] font-semibold mb-1.5">Nombre del Jugador o ID</label>
           <input type="text" id="jugador" required placeholder="Tu Nick exacto o ID" class="w-full input-box rounded-xl px-4 py-2.5 text-sm transition">
         </div>
 
@@ -147,7 +148,7 @@
         <!-- Recursos por Intervalos -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
           <div>
-            <label id="t-fireCrystal" class="block text-[10px] tracking-wider text-[#e6d0cc] font-bold mb-1.5 uppercase text-center">Cristal de Fuego</label>
+            <label id="t-fireCrystal" class="block text-[10px] tracking-wider text-[#7E9F9D] font-bold mb-1.5 uppercase text-center">Cristal de Fuego</label>
             <div class="flex items-center gap-2">
               <div class="icon-box">
                 <img src="img/cristal.png" alt="Cristal" onerror="this.outerHTML='<span>🔥</span>'" class="w-7 h-7 object-contain">
@@ -157,7 +158,7 @@
           </div>
 
           <div>
-            <label id="t-refined" class="block text-[10px] tracking-wider text-[#e6d0cc] font-bold mb-1.5 uppercase text-center">Cristal de Fuego Refinado</label>
+            <label id="t-refined" class="block text-[10px] tracking-wider text-[#7E9F9D] font-bold mb-1.5 uppercase text-center">Cristal de Fuego Refinado</label>
             <div class="flex items-center gap-2">
               <div class="icon-box">
                 <img src="img/refinado.png" alt="Refinado" onerror="this.outerHTML='<span>💎</span>'" class="w-7 h-7 object-contain">
@@ -167,7 +168,7 @@
           </div>
 
           <div>
-            <label id="t-fragments" class="block text-[10px] tracking-wider text-[#e6d0cc] font-bold mb-1.5 uppercase text-center">Fragmentos</label>
+            <label id="t-fragments" class="block text-[10px] tracking-wider text-[#7E9F9D] font-bold mb-1.5 uppercase text-center">Fragmentos</label>
             <div class="flex items-center gap-2">
               <div class="icon-box">
                 <img src="img/fragmentos.png" alt="Fragmentos" onerror="this.outerHTML='<span>🔺</span>'" class="w-7 h-7 object-contain">
@@ -179,10 +180,10 @@
 
         <!-- Aceleradores por Intervalos (Días) -->
         <div class="pt-2">
-          <p id="t-speedupsHeader" class="text-[11px] font-bold text-center tracking-wider text-[#e6d0cc] uppercase mb-3">Aceleradores (Días)</p>
+          <p id="t-speedupsHeader" class="text-[11px] font-bold text-center tracking-wider text-[#7E9F9D] uppercase mb-3">Aceleradores (Días)</p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label id="t-general" class="block text-[10px] uppercase text-[#e6d0cc] font-semibold mb-1">General</label>
+              <label id="t-general" class="block text-[10px] uppercase text-[#7E9F9D] font-semibold mb-1">General</label>
               <div class="flex items-center gap-2">
                 <div class="icon-box">
                   <img src="img/acel_general.png" alt="General" onerror="this.outerHTML='<span>⏩</span>'" class="w-7 h-7 object-contain">
@@ -192,7 +193,7 @@
             </div>
 
             <div>
-              <label id="t-training" class="block text-[10px] uppercase text-[#e6d0cc] font-semibold mb-1">Entrenamiento</label>
+              <label id="t-training" class="block text-[10px] uppercase text-[#7E9F9D] font-semibold mb-1">Entrenamiento</label>
               <div class="flex items-center gap-2">
                 <div class="icon-box">
                   <img src="img/acel_entrenamiento.png" alt="Entrenamiento" onerror="this.outerHTML='<span>⚔️</span>'" class="w-7 h-7 object-contain">
@@ -202,7 +203,7 @@
             </div>
 
             <div>
-              <label id="t-construction" class="block text-[10px] uppercase text-[#e6d0cc] font-semibold mb-1">Construcción</label>
+              <label id="t-construction" class="block text-[10px] uppercase text-[#7E9F9D] font-semibold mb-1">Construcción</label>
               <div class="flex items-center gap-2">
                 <div class="icon-box">
                   <img src="img/acel_construccion.png" alt="Construcción" onerror="this.outerHTML='<span>🔨</span>'" class="w-7 h-7 object-contain">
@@ -212,7 +213,7 @@
             </div>
 
             <div>
-              <label id="t-research" class="block text-[10px] uppercase text-[#e6d0cc] font-semibold mb-1">Investigación</label>
+              <label id="t-research" class="block text-[10px] uppercase text-[#7E9F9D] font-semibold mb-1">Investigación</label>
               <div class="flex items-center gap-2">
                 <div class="icon-box">
                   <img src="img/acel_investigacion.png" alt="Investigación" onerror="this.outerHTML='<span>🔬</span>'" class="w-7 h-7 object-contain">
@@ -224,17 +225,17 @@
         </div>
 
         <!-- 3 Prioridades por Día -->
-        <div class="pt-2 border-t border-[#753b2f]">
-          <p id="t-scheduleHeader" class="text-[11px] font-bold text-center tracking-wider text-[#e6d0cc] uppercase mb-2">Inscripción por Prioridades (3 opciones por día)</p>
+        <div class="pt-2 border-t border-[#1F3333]">
+          <p id="t-scheduleHeader" class="text-[11px] font-bold text-center tracking-wider text-[#7E9F9D] uppercase mb-2">Inscripción por Prioridades (3 opciones por día)</p>
           
           <div class="flex items-center justify-center gap-2 mb-4">
-            <input type="checkbox" id="syncSchedule" class="rounded accent-[#D86A51] w-4 h-4 cursor-pointer">
-            <label for="syncSchedule" id="t-syncLabel" class="text-xs text-[#f5bfb5] font-medium cursor-pointer">Aplicar las 3 opciones del Lunes a todos los días</label>
+            <input type="checkbox" id="syncSchedule" class="rounded accent-[#2DD4BF] w-4 h-4 cursor-pointer">
+            <label for="syncSchedule" id="t-syncLabel" class="text-xs text-[#2DD4BF] font-medium cursor-pointer">Aplicar las 3 opciones del Lunes a todos los días</label>
           </div>
 
           <!-- Lunes -->
-          <div class="mb-4 bg-[#411d16] p-3 rounded-xl border border-[#6b352b]">
-            <label id="t-mon" class="block text-xs uppercase text-[#f5bfb5] font-bold mb-2">Lunes (Construcción)</label>
+          <div class="mb-4 bg-[#0E1717] p-3 rounded-xl border border-[#1F3333]">
+            <label id="t-mon" class="block text-xs uppercase text-[#2DD4BF] font-bold mb-2">Lunes (Construcción)</label>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
               <select id="lunesP1" class="input-box rounded-lg p-2 text-xs"></select>
               <select id="lunesP2" class="input-box rounded-lg p-2 text-xs"></select>
@@ -243,8 +244,8 @@
           </div>
 
           <!-- Martes -->
-          <div class="mb-4 bg-[#411d16] p-3 rounded-xl border border-[#6b352b]">
-            <label id="t-tue" class="block text-xs uppercase text-[#f5bfb5] font-bold mb-2">Martes (Investigación)</label>
+          <div class="mb-4 bg-[#0E1717] p-3 rounded-xl border border-[#1F3333]">
+            <label id="t-tue" class="block text-xs uppercase text-[#2DD4BF] font-bold mb-2">Martes (Investigación)</label>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
               <select id="martesP1" class="input-box rounded-lg p-2 text-xs"></select>
               <select id="martesP2" class="input-box rounded-lg p-2 text-xs"></select>
@@ -253,8 +254,8 @@
           </div>
 
           <!-- Jueves -->
-          <div class="bg-[#411d16] p-3 rounded-xl border border-[#6b352b]">
-            <label id="t-thu" class="block text-xs uppercase text-[#f5bfb5] font-bold mb-2">Jueves (Entrenamiento)</label>
+          <div class="bg-[#0E1717] p-3 rounded-xl border border-[#1F3333]">
+            <label id="t-thu" class="block text-xs uppercase text-[#2DD4BF] font-bold mb-2">Jueves (Entrenamiento)</label>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
               <select id="juevesP1" class="input-box rounded-lg p-2 text-xs"></select>
               <select id="juevesP2" class="input-box rounded-lg p-2 text-xs"></select>
@@ -263,7 +264,7 @@
           </div>
         </div>
 
-        <button type="submit" id="submitBtn" class="btn-action w-full py-3.5 mt-4 rounded-xl font-bold shadow-md cursor-pointer">
+        <button type="submit" id="submitBtn" class="btn-action w-full py-3.5 mt-4 rounded-xl font-bold shadow-lg cursor-pointer">
           Reserva tu hueco
         </button>
 
@@ -529,8 +530,8 @@
         const btn = document.getElementById(`lang-${l}`);
         if (btn) {
           btn.className = (l === lang) 
-            ? "px-2 py-1 text-xs rounded font-bold transition bg-[#D86A51] text-[#FDF9F2]" 
-            : "px-2 py-1 text-xs rounded font-bold transition text-[#d5beba] hover:text-white";
+            ? "px-2 py-1 text-xs rounded font-bold transition bg-[#2DD4BF] text-[#0B1313]" 
+            : "px-2 py-1 text-xs rounded font-bold transition text-[#7E9F9D] hover:text-white";
         }
       });
 
@@ -614,7 +615,7 @@
         });
 
         msg.textContent = t.success;
-        msg.className = "text-center text-xs font-semibold text-emerald-400 block";
+        msg.className = "text-center text-xs font-semibold text-[#2DD4BF] block";
         document.getElementById("savingsForm").reset();
         document.querySelectorAll(".badge-selected").forEach(b => b.classList.remove("badge-selected"));
         selectedAlliance = "";
