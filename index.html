@@ -6,61 +6,129 @@
   <title>Semana de Preparación del estado 2796</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { background-color: #0b111c; font-family: system-ui, -apple-system, sans-serif; }
+    body {
+      background-color: #4A231C; /* Terracota Profundo */
+      color: #FDF9F2;            /* Vainilla */
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+
+    /* Tarjeta principal */
     .card-modal {
-      background: linear-gradient(180deg, #131d2e 0%, #0d1522 100%);
-      border: 1px solid #1f2f47;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      background-color: #5C2E24; /* Terracota más claro */
+      border: 1px solid #753b2f;
+      box-shadow: 0 20px 45px -10px rgba(25, 10, 8, 0.7);
     }
+
+    /* Barra superior de acento */
     .top-gradient-bar {
-      height: 3px;
-      background: linear-gradient(90deg, #38bdf8 0%, #0284c7 60%, transparent 100%);
+      height: 4px;
+      background: linear-gradient(90deg, #D86A51 0%, #f09580 60%, transparent 100%);
     }
-    .input-box { background-color: #090e17; border: 1px solid #1b263b; }
-    .badge-btn { background-color: #121c2c; color: #94a3b8; border: 1px solid #1a283e; transition: all 0.15s; }
-    .badge-btn:hover { background-color: #1a273c; color: #e2e8f0; }
-    .badge-selected { background-color: #38bdf8 !important; color: #07111e !important; font-weight: 700; border-color: #38bdf8 !important; }
-    .icon-box { width: 38px; height: 38px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+    /* Cajas de inputs y selects */
+    .input-box {
+      background-color: #3d1b15;
+      border: 1px solid #6b352b;
+      color: #FDF9F2;
+    }
+    .input-box:focus {
+      outline: none;
+      border-color: #D86A51;
+      box-shadow: 0 0 0 2px rgba(216, 106, 81, 0.35);
+    }
+
+    /* Botones de alianzas */
+    .badge-btn {
+      background-color: #451f18;
+      color: #e5d7cc;
+      border: 1px solid #633227;
+      transition: all 0.2s ease;
+    }
+    .badge-btn:hover {
+      background-color: #D86A51;
+      color: #FDF9F2;
+      border-color: #D86A51;
+    }
+    .badge-selected {
+      background-color: #D86A51 !important;
+      color: #FDF9F2 !important;
+      font-weight: 700;
+      border-color: #FDF9F2 !important;
+    }
+
+    /* Botón de envío */
+    .btn-action {
+      background-color: #D86A51;
+      color: #FDF9F2;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+    .btn-action:hover {
+      background-color: #FDF9F2;
+      color: #4A231C;
+    }
+
+    /* Cajas contenedoras de iconos */
+    .icon-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background-color: #411d16;
+      border: 1px solid #663328;
+    }
+
+    /* Opciones deshabilitadas en selects */
+    option {
+      background-color: #3d1b15;
+      color: #FDF9F2;
+    }
+    option:disabled {
+      color: #9d7b73;
+      background-color: #2b130e;
+    }
   </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-3 sm:p-6">
 
-  <div class="card-modal w-full max-w-3xl rounded-2xl overflow-hidden text-slate-200 relative">
+  <div class="card-modal w-full max-w-3xl rounded-2xl overflow-hidden relative">
     <div class="top-gradient-bar"></div>
 
     <!-- Barra de 9 Idiomas -->
     <div class="flex justify-between items-center px-6 pt-5 pb-2">
-      <div class="flex items-center gap-1 bg-[#090e17] p-1 rounded-lg border border-slate-800 flex-wrap">
-        <button type="button" onclick="setLanguage('es')" id="lang-es" class="px-2 py-1 text-xs rounded font-bold transition bg-sky-500 text-slate-950">🇪🇸 ES</button>
-        <button type="button" onclick="setLanguage('en')" id="lang-en" class="px-2 py-1 text-xs rounded font-bold transition text-slate-400 hover:text-white">🇬🇧 EN</button>
-        <button type="button" onclick="setLanguage('fr')" id="lang-fr" class="px-2 py-1 text-xs rounded font-bold transition text-slate-400 hover:text-white">🇫🇷 FR</button>
-        <button type="button" onclick="setLanguage('de')" id="lang-de" class="px-2 py-1 text-xs rounded font-bold transition text-slate-400 hover:text-white">🇩🇪 DE</button>
-        <button type="button" onclick="setLanguage('ru')" id="lang-ru" class="px-2 py-1 text-xs rounded font-bold transition text-slate-400 hover:text-white">🇷🇺 RU</button>
-        <button type="button" onclick="setLanguage('ko')" id="lang-ko" class="px-2 py-1 text-xs rounded font-bold transition text-slate-400 hover:text-white">🇰🇷 KO</button>
-        <button type="button" onclick="setLanguage('pl')" id="lang-pl" class="px-2 py-1 text-xs rounded font-bold transition text-slate-400 hover:text-white">🇵🇱 PL</button>
-        <button type="button" onclick="setLanguage('id')" id="lang-id" class="px-2 py-1 text-xs rounded font-bold transition text-slate-400 hover:text-white">🇮🇩 ID</button>
-        <button type="button" onclick="setLanguage('el')" id="lang-el" class="px-2 py-1 text-xs rounded font-bold transition text-slate-400 hover:text-white">🇬🇷 EL</button>
+      <div class="flex items-center gap-1 bg-[#3d1b15] p-1.5 rounded-lg border border-[#6b352b] flex-wrap">
+        <button type="button" onclick="setLanguage('es')" id="lang-es" class="px-2 py-1 text-xs rounded font-bold transition bg-[#D86A51] text-[#FDF9F2]">🇪🇸 ES</button>
+        <button type="button" onclick="setLanguage('en')" id="lang-en" class="px-2 py-1 text-xs rounded font-bold transition text-[#d5beba] hover:text-white">🇬🇧 EN</button>
+        <button type="button" onclick="setLanguage('fr')" id="lang-fr" class="px-2 py-1 text-xs rounded font-bold transition text-[#d5beba] hover:text-white">🇫🇷 FR</button>
+        <button type="button" onclick="setLanguage('de')" id="lang-de" class="px-2 py-1 text-xs rounded font-bold transition text-[#d5beba] hover:text-white">🇩🇪 DE</button>
+        <button type="button" onclick="setLanguage('ru')" id="lang-ru" class="px-2 py-1 text-xs rounded font-bold transition text-[#d5beba] hover:text-white">🇷🇺 RU</button>
+        <button type="button" onclick="setLanguage('ko')" id="lang-ko" class="px-2 py-1 text-xs rounded font-bold transition text-[#d5beba] hover:text-white">🇰🇷 KO</button>
+        <button type="button" onclick="setLanguage('pl')" id="lang-pl" class="px-2 py-1 text-xs rounded font-bold transition text-[#d5beba] hover:text-white">🇵🇱 PL</button>
+        <button type="button" onclick="setLanguage('id')" id="lang-id" class="px-2 py-1 text-xs rounded font-bold transition text-[#d5beba] hover:text-white">🇮🇩 ID</button>
+        <button type="button" onclick="setLanguage('el')" id="lang-el" class="px-2 py-1 text-xs rounded font-bold transition text-[#d5beba] hover:text-white">🇬🇷 EL</button>
       </div>
-      <div class="w-7 h-7 rounded-full bg-slate-800/60 flex items-center justify-center text-slate-500 text-xs">✕</div>
+      <div class="w-7 h-7 rounded-full bg-[#3d1b15] flex items-center justify-center text-[#d5beba] text-xs">✕</div>
     </div>
 
     <!-- Pantalla de Convocatoria Cerrada -->
     <div id="closedNotice" class="p-10 text-center hidden">
       <div class="text-5xl mb-4">🔒</div>
-      <h2 id="t-closedTitle" class="text-xl font-bold text-white mb-2">Convocatoria Cerrada</h2>
-      <p id="t-closedDesc" class="text-slate-400 text-sm max-w-md mx-auto">El plazo de inscripción ha finalizado o aún no se encuentra abierto. Las asignaciones de horarios se publicarán pronto.</p>
+      <h2 id="t-closedTitle" class="text-xl font-bold text-[#FDF9F2] mb-2">Convocatoria Cerrada</h2>
+      <p id="t-closedDesc" class="text-[#e2ceca] text-sm max-w-md mx-auto">El plazo de inscripción ha finalizado o aún no se encuentra abierto. Las asignaciones de horarios se publicarán pronto.</p>
     </div>
 
     <!-- Contenido del Formulario -->
     <div id="formContainer" class="px-6 pb-6 pt-2">
-      <h1 id="t-title" class="text-xl sm:text-2xl font-bold text-center mb-5 text-white tracking-wide">Semana de Preparación del estado 2796</h1>
+      <h1 id="t-title" class="text-xl sm:text-2xl font-bold text-center mb-5 text-[#FDF9F2] tracking-wide">Semana de Preparación del estado 2796</h1>
 
       <form id="savingsForm" class="space-y-5">
         
         <!-- Nombre Jugador / ID -->
         <div>
-          <label id="t-playerName" class="block text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1.5">Nombre del Jugador o ID</label>
-          <input type="text" id="jugador" required placeholder="Tu Nick exacto o ID" class="w-full input-box rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-sky-500 transition">
+          <label id="t-playerName" class="block text-[11px] uppercase tracking-wider text-[#e6d0cc] font-semibold mb-1.5">Nombre del Jugador o ID</label>
+          <input type="text" id="jugador" required placeholder="Tu Nick exacto o ID" class="w-full input-box rounded-xl px-4 py-2.5 text-sm transition">
         </div>
 
         <!-- Alianzas -->
@@ -79,123 +147,123 @@
         <!-- Recursos por Intervalos -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
           <div>
-            <label id="t-fireCrystal" class="block text-[10px] tracking-wider text-slate-400 font-bold mb-1.5 uppercase text-center">Cristal de Fuego</label>
+            <label id="t-fireCrystal" class="block text-[10px] tracking-wider text-[#e6d0cc] font-bold mb-1.5 uppercase text-center">Cristal de Fuego</label>
             <div class="flex items-center gap-2">
-              <div class="icon-box bg-rose-950/40 border border-rose-800/50">
+              <div class="icon-box">
                 <img src="img/cristal.png" alt="Cristal" onerror="this.outerHTML='<span>🔥</span>'" class="w-7 h-7 object-contain">
               </div>
-              <select id="cristalFuego" class="w-full input-box rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-sky-500"></select>
+              <select id="cristalFuego" class="w-full input-box rounded-xl px-3 py-2 text-xs"></select>
             </div>
           </div>
 
           <div>
-            <label id="t-refined" class="block text-[10px] tracking-wider text-slate-400 font-bold mb-1.5 uppercase text-center">Cristal de Fuego Refinado</label>
+            <label id="t-refined" class="block text-[10px] tracking-wider text-[#e6d0cc] font-bold mb-1.5 uppercase text-center">Cristal de Fuego Refinado</label>
             <div class="flex items-center gap-2">
-              <div class="icon-box bg-amber-950/40 border border-amber-800/50">
+              <div class="icon-box">
                 <img src="img/refinado.png" alt="Refinado" onerror="this.outerHTML='<span>💎</span>'" class="w-7 h-7 object-contain">
               </div>
-              <select id="refinado" class="w-full input-box rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-sky-500"></select>
+              <select id="refinado" class="w-full input-box rounded-xl px-3 py-2 text-xs"></select>
             </div>
           </div>
 
           <div>
-            <label id="t-fragments" class="block text-[10px] tracking-wider text-slate-400 font-bold mb-1.5 uppercase text-center">Fragmentos</label>
+            <label id="t-fragments" class="block text-[10px] tracking-wider text-[#e6d0cc] font-bold mb-1.5 uppercase text-center">Fragmentos</label>
             <div class="flex items-center gap-2">
-              <div class="icon-box bg-red-950/40 border border-red-800/50">
+              <div class="icon-box">
                 <img src="img/fragmentos.png" alt="Fragmentos" onerror="this.outerHTML='<span>🔺</span>'" class="w-7 h-7 object-contain">
               </div>
-              <select id="fragmentos" class="w-full input-box rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-sky-500"></select>
+              <select id="fragmentos" class="w-full input-box rounded-xl px-3 py-2 text-xs"></select>
             </div>
           </div>
         </div>
 
         <!-- Aceleradores por Intervalos (Días) -->
         <div class="pt-2">
-          <p id="t-speedupsHeader" class="text-[11px] font-bold text-center tracking-wider text-slate-400 uppercase mb-3">Aceleradores (Días)</p>
+          <p id="t-speedupsHeader" class="text-[11px] font-bold text-center tracking-wider text-[#e6d0cc] uppercase mb-3">Aceleradores (Días)</p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label id="t-general" class="block text-[10px] uppercase text-slate-400 font-semibold mb-1">General</label>
+              <label id="t-general" class="block text-[10px] uppercase text-[#e6d0cc] font-semibold mb-1">General</label>
               <div class="flex items-center gap-2">
-                <div class="icon-box bg-sky-950/40 border border-sky-800/50">
+                <div class="icon-box">
                   <img src="img/acel_general.png" alt="General" onerror="this.outerHTML='<span>⏩</span>'" class="w-7 h-7 object-contain">
                 </div>
-                <select id="acelGeneral" class="w-full input-box rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-sky-500"></select>
+                <select id="acelGeneral" class="w-full input-box rounded-xl px-3 py-2 text-xs"></select>
               </div>
             </div>
 
             <div>
-              <label id="t-training" class="block text-[10px] uppercase text-slate-400 font-semibold mb-1">Entrenamiento</label>
+              <label id="t-training" class="block text-[10px] uppercase text-[#e6d0cc] font-semibold mb-1">Entrenamiento</label>
               <div class="flex items-center gap-2">
-                <div class="icon-box bg-orange-950/40 border border-orange-800/50">
+                <div class="icon-box">
                   <img src="img/acel_entrenamiento.png" alt="Entrenamiento" onerror="this.outerHTML='<span>⚔️</span>'" class="w-7 h-7 object-contain">
                 </div>
-                <select id="acelEntrenamiento" class="w-full input-box rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-sky-500"></select>
+                <select id="acelEntrenamiento" class="w-full input-box rounded-xl px-3 py-2 text-xs"></select>
               </div>
             </div>
 
             <div>
-              <label id="t-construction" class="block text-[10px] uppercase text-slate-400 font-semibold mb-1">Construcción</label>
+              <label id="t-construction" class="block text-[10px] uppercase text-[#e6d0cc] font-semibold mb-1">Construcción</label>
               <div class="flex items-center gap-2">
-                <div class="icon-box bg-emerald-950/40 border border-emerald-800/50">
+                <div class="icon-box">
                   <img src="img/acel_construccion.png" alt="Construcción" onerror="this.outerHTML='<span>🔨</span>'" class="w-7 h-7 object-contain">
                 </div>
-                <select id="acelConstruccion" class="w-full input-box rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-sky-500"></select>
+                <select id="acelConstruccion" class="w-full input-box rounded-xl px-3 py-2 text-xs"></select>
               </div>
             </div>
 
             <div>
-              <label id="t-research" class="block text-[10px] uppercase text-slate-400 font-semibold mb-1">Investigación</label>
+              <label id="t-research" class="block text-[10px] uppercase text-[#e6d0cc] font-semibold mb-1">Investigación</label>
               <div class="flex items-center gap-2">
-                <div class="icon-box bg-purple-950/40 border border-purple-800/50">
+                <div class="icon-box">
                   <img src="img/acel_investigacion.png" alt="Investigación" onerror="this.outerHTML='<span>🔬</span>'" class="w-7 h-7 object-contain">
                 </div>
-                <select id="acelInvestigacion" class="w-full input-box rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-sky-500"></select>
+                <select id="acelInvestigacion" class="w-full input-box rounded-xl px-3 py-2 text-xs"></select>
               </div>
             </div>
           </div>
         </div>
 
         <!-- 3 Prioridades por Día -->
-        <div class="pt-2 border-t border-slate-800/80">
-          <p id="t-scheduleHeader" class="text-[11px] font-bold text-center tracking-wider text-slate-400 uppercase mb-2">Inscripción por Prioridades (3 opciones por día)</p>
+        <div class="pt-2 border-t border-[#753b2f]">
+          <p id="t-scheduleHeader" class="text-[11px] font-bold text-center tracking-wider text-[#e6d0cc] uppercase mb-2">Inscripción por Prioridades (3 opciones por día)</p>
           
           <div class="flex items-center justify-center gap-2 mb-4">
-            <input type="checkbox" id="syncSchedule" class="rounded accent-sky-500 w-4 h-4 cursor-pointer">
-            <label for="syncSchedule" id="t-syncLabel" class="text-xs text-sky-400 font-medium cursor-pointer">Aplicar las 3 opciones del Lunes a todos los días</label>
+            <input type="checkbox" id="syncSchedule" class="rounded accent-[#D86A51] w-4 h-4 cursor-pointer">
+            <label for="syncSchedule" id="t-syncLabel" class="text-xs text-[#f5bfb5] font-medium cursor-pointer">Aplicar las 3 opciones del Lunes a todos los días</label>
           </div>
 
           <!-- Lunes -->
-          <div class="mb-4 bg-[#090e17] p-3 rounded-xl border border-slate-800/80">
-            <label id="t-mon" class="block text-xs uppercase text-sky-400 font-bold mb-2">Lunes (Construcción)</label>
+          <div class="mb-4 bg-[#411d16] p-3 rounded-xl border border-[#6b352b]">
+            <label id="t-mon" class="block text-xs uppercase text-[#f5bfb5] font-bold mb-2">Lunes (Construcción)</label>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-              <select id="lunesP1" class="input-box rounded-lg p-2 text-xs text-white"></select>
-              <select id="lunesP2" class="input-box rounded-lg p-2 text-xs text-white"></select>
-              <select id="lunesP3" class="input-box rounded-lg p-2 text-xs text-white"></select>
+              <select id="lunesP1" class="input-box rounded-lg p-2 text-xs"></select>
+              <select id="lunesP2" class="input-box rounded-lg p-2 text-xs"></select>
+              <select id="lunesP3" class="input-box rounded-lg p-2 text-xs"></select>
             </div>
           </div>
 
           <!-- Martes -->
-          <div class="mb-4 bg-[#090e17] p-3 rounded-xl border border-slate-800/80">
-            <label id="t-tue" class="block text-xs uppercase text-sky-400 font-bold mb-2">Martes (Investigación)</label>
+          <div class="mb-4 bg-[#411d16] p-3 rounded-xl border border-[#6b352b]">
+            <label id="t-tue" class="block text-xs uppercase text-[#f5bfb5] font-bold mb-2">Martes (Investigación)</label>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-              <select id="martesP1" class="input-box rounded-lg p-2 text-xs text-white"></select>
-              <select id="martesP2" class="input-box rounded-lg p-2 text-xs text-white"></select>
-              <select id="martesP3" class="input-box rounded-lg p-2 text-xs text-white"></select>
+              <select id="martesP1" class="input-box rounded-lg p-2 text-xs"></select>
+              <select id="martesP2" class="input-box rounded-lg p-2 text-xs"></select>
+              <select id="martesP3" class="input-box rounded-lg p-2 text-xs"></select>
             </div>
           </div>
 
           <!-- Jueves -->
-          <div class="bg-[#090e17] p-3 rounded-xl border border-slate-800/80">
-            <label id="t-thu" class="block text-xs uppercase text-sky-400 font-bold mb-2">Jueves (Entrenamiento)</label>
+          <div class="bg-[#411d16] p-3 rounded-xl border border-[#6b352b]">
+            <label id="t-thu" class="block text-xs uppercase text-[#f5bfb5] font-bold mb-2">Jueves (Entrenamiento)</label>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-              <select id="juevesP1" class="input-box rounded-lg p-2 text-xs text-white"></select>
-              <select id="juevesP2" class="input-box rounded-lg p-2 text-xs text-white"></select>
-              <select id="juevesP3" class="input-box rounded-lg p-2 text-xs text-white"></select>
+              <select id="juevesP1" class="input-box rounded-lg p-2 text-xs"></select>
+              <select id="juevesP2" class="input-box rounded-lg p-2 text-xs"></select>
+              <select id="juevesP3" class="input-box rounded-lg p-2 text-xs"></select>
             </div>
           </div>
         </div>
 
-        <button type="submit" id="submitBtn" class="w-full py-3.5 mt-4 rounded-xl font-bold bg-sky-500 hover:bg-sky-400 text-slate-950 transition duration-150">
+        <button type="submit" id="submitBtn" class="btn-action w-full py-3.5 mt-4 rounded-xl font-bold shadow-md cursor-pointer">
           Reserva tu hueco
         </button>
 
@@ -339,7 +407,6 @@
       if (el) el.placeholder = text;
     }
 
-    // Rellenar selectores de recursos con los textos e intervalos traducidos
     function populateResourceSelectors() {
       const t = translations[currentLang] || translations.es;
 
@@ -387,7 +454,6 @@
       if (prev) el.value = prev;
     }
 
-    // Rellenar selectores de horas (3 preferencias por día)
     function populateTimeSelectors() {
       const t = translations[currentLang] || translations.es;
       const selectors = [
@@ -463,8 +529,8 @@
         const btn = document.getElementById(`lang-${l}`);
         if (btn) {
           btn.className = (l === lang) 
-            ? "px-2 py-1 text-xs rounded font-bold transition bg-sky-500 text-slate-950" 
-            : "px-2 py-1 text-xs rounded font-bold transition text-slate-400 hover:text-white";
+            ? "px-2 py-1 text-xs rounded font-bold transition bg-[#D86A51] text-[#FDF9F2]" 
+            : "px-2 py-1 text-xs rounded font-bold transition text-[#d5beba] hover:text-white";
         }
       });
 
