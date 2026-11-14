@@ -3,72 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Semana de Preparación del estado 2796</title>
+  <title>Semana de Preparación - Estado 2796</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      background-color: #0B1313; /* Negro Abisal Frío */
-      color: #F2FAF9;            /* Blanco Hielo */
+      background-color: #060D09; /* Carbón abisal con matiz verde bosque */
+      color: #F0FDF4;            /* Blanco escarcha mentolado */
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
     }
 
-    /* Tarjeta principal */
     .card-modal {
-      background-color: #132020; /* Pino Sombrío */
-      border: 1px solid #1F3333;
-      box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.8);
+      background-color: #0C1A13; /* Pizarra esmeralda profundo */
+      border: 1px solid #1B3B2B;
+      box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.85);
     }
 
-    /* Barra superior con gradiente Menta Glaciar */
     .top-gradient-bar {
       height: 4px;
-      background: linear-gradient(90deg, #2DD4BF 0%, #14B8A6 60%, transparent 100%);
+      background: linear-gradient(90deg, #10B981 0%, #34D399 60%, transparent 100%);
     }
 
-    /* Inputs y desplegables */
     .input-box {
-      background-color: #0E1717;
-      border: 1px solid #1F3333;
-      color: #F2FAF9;
+      background-color: #08120D;
+      border: 1px solid #1B3B2B;
+      color: #F0FDF4;
       transition: all 0.2s ease;
     }
     .input-box:focus {
       outline: none;
-      border-color: #2DD4BF;
-      box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.25);
+      border-color: #10B981;
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
     }
 
-    /* Botones de alianzas */
     .badge-btn {
-      background-color: #182828;
-      color: #9ab4b2;
-      border: 1px solid #233a3a;
+      background-color: #0F2319;
+      color: #9CC7B1;
+      border: 1px solid #1F4733;
       transition: all 0.2s ease;
+      cursor: pointer;
     }
     .badge-btn:hover {
-      background-color: #1F3333;
-      color: #2DD4BF;
-      border-color: #2DD4BF;
+      background-color: #163325;
+      color: #6EE7B7;
+      border-color: #10B981;
     }
     .badge-selected {
-      background-color: #2DD4BF !important;
-      color: #0B1313 !important;
+      background-color: #10B981 !important;
+      color: #04130B !important;
       font-weight: 700;
-      border-color: #2DD4BF !important;
+      border-color: #10B981 !important;
     }
 
-    /* Botón principal de envío */
     .btn-action {
-      background-color: #2DD4BF;
-      color: #0B1313;
-      transition: background-color 0.2s ease, transform 0.1s ease;
+      background: linear-gradient(90deg, #059669 0%, #10B981 100%);
+      color: #FFFFFF;
+      transition: opacity 0.2s ease, transform 0.1s ease;
     }
     .btn-action:hover {
-      background-color: #14B8A6;
-      color: #ffffff;
+      opacity: 0.92;
+      transform: translateY(-1px);
     }
 
-    /* Cajas contenedoras de iconos */
     .icon-box {
       width: 38px;
       height: 38px;
@@ -77,326 +75,766 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      background-color: #0E1717;
-      border: 1px solid #1F3333;
+      background-color: #09150F;
+      border: 1px solid #1B3B2B;
+      font-size: 1.15rem;
     }
 
-    /* Opciones dentro de los selects */
     option {
-      background-color: #0E1717;
-      color: #F2FAF9;
+      background-color: #08120D;
+      color: #F0FDF4;
     }
     option:disabled {
-      color: #4d6664;
-      background-color: #080d0d;
+      color: #456957;
+      background-color: #040A07;
+    }
+
+    .modal-backdrop {
+      background-color: rgba(3, 10, 6, 0.84);
+      backdrop-filter: blur(6px);
     }
   </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-3 sm:p-6">
+<body class="flex items-center justify-center p-3 sm:p-6 antialiased">
 
-  <div class="card-modal w-full max-w-3xl rounded-2xl overflow-hidden relative">
+  <div class="card-modal w-full max-w-3xl rounded-2xl overflow-hidden relative my-auto">
     <div class="top-gradient-bar"></div>
 
-    <!-- Barra de 9 Idiomas -->
-    <div class="flex justify-between items-center px-6 pt-5 pb-2">
-      <div class="flex items-center gap-1 bg-[#0E1717] p-1.5 rounded-lg border border-[#1F3333] flex-wrap">
-        <button type="button" onclick="setLanguage('es')" id="lang-es" class="px-2 py-1 text-xs rounded font-bold transition bg-[#2DD4BF] text-[#0B1313]">🇪🇸 ES</button>
-        <button type="button" onclick="setLanguage('en')" id="lang-en" class="px-2 py-1 text-xs rounded font-bold transition text-[#7E9F9D] hover:text-white">🇬🇧 EN</button>
-        <button type="button" onclick="setLanguage('fr')" id="lang-fr" class="px-2 py-1 text-xs rounded font-bold transition text-[#7E9F9D] hover:text-white">🇫🇷 FR</button>
-        <button type="button" onclick="setLanguage('de')" id="lang-de" class="px-2 py-1 text-xs rounded font-bold transition text-[#7E9F9D] hover:text-white">🇩🇪 DE</button>
-        <button type="button" onclick="setLanguage('ru')" id="lang-ru" class="px-2 py-1 text-xs rounded font-bold transition text-[#7E9F9D] hover:text-white">🇷🇺 RU</button>
-        <button type="button" onclick="setLanguage('ko')" id="lang-ko" class="px-2 py-1 text-xs rounded font-bold transition text-[#7E9F9D] hover:text-white">🇰🇷 KO</button>
-        <button type="button" onclick="setLanguage('pl')" id="lang-pl" class="px-2 py-1 text-xs rounded font-bold transition text-[#7E9F9D] hover:text-white">🇵🇱 PL</button>
-        <button type="button" onclick="setLanguage('id')" id="lang-id" class="px-2 py-1 text-xs rounded font-bold transition text-[#7E9F9D] hover:text-white">🇮🇩 ID</button>
-        <button type="button" onclick="setLanguage('el')" id="lang-el" class="px-2 py-1 text-xs rounded font-bold transition text-[#7E9F9D] hover:text-white">🇬🇷 EL</button>
+    <!-- Barra de 11 Idiomas -->
+    <div class="flex flex-wrap justify-between items-center gap-2 px-4 sm:px-6 pt-5 pb-3">
+      <div class="flex items-center gap-1.5 bg-[#08120D] p-1.5 rounded-lg border border-[#1B3B2B] flex-wrap max-w-full">
+        <button type="button" onclick="setLanguage('es', true)" id="lang-es" class="px-2 py-1 text-xs rounded font-bold transition bg-[#10B981] text-[#04130B]">🇪🇸 ES</button>
+        <button type="button" onclick="setLanguage('en', true)" id="lang-en" class="px-2 py-1 text-xs rounded font-bold transition text-[#8AB8A0] hover:text-white hover:bg-[#12291E]">🇬🇧 EN</button>
+        <button type="button" onclick="setLanguage('fr', true)" id="lang-fr" class="px-2 py-1 text-xs rounded font-bold transition text-[#8AB8A0] hover:text-white hover:bg-[#12291E]">🇫🇷 FR</button>
+        <button type="button" onclick="setLanguage('de', true)" id="lang-de" class="px-2 py-1 text-xs rounded font-bold transition text-[#8AB8A0] hover:text-white hover:bg-[#12291E]">🇩🇪 DE</button>
+        <button type="button" onclick="setLanguage('ru', true)" id="lang-ru" class="px-2 py-1 text-xs rounded font-bold transition text-[#8AB8A0] hover:text-white hover:bg-[#12291E]">🇷🇺 RU</button>
+        <button type="button" onclick="setLanguage('ko', true)" id="lang-ko" class="px-2 py-1 text-xs rounded font-bold transition text-[#8AB8A0] hover:text-white hover:bg-[#12291E]">🇰🇷 KO</button>
+        <button type="button" onclick="setLanguage('pl', true)" id="lang-pl" class="px-2 py-1 text-xs rounded font-bold transition text-[#8AB8A0] hover:text-white hover:bg-[#12291E]">🇵🇱 PL</button>
+        <button type="button" onclick="setLanguage('id', true)" id="lang-id" class="px-2 py-1 text-xs rounded font-bold transition text-[#8AB8A0] hover:text-white hover:bg-[#12291E]">🇮🇩 ID</button>
+        <button type="button" onclick="setLanguage('zh', true)" id="lang-zh" class="px-2 py-1 text-xs rounded font-bold transition text-[#8AB8A0] hover:text-white hover:bg-[#12291E]">🇨🇳 中文</button>
+        <button type="button" onclick="setLanguage('tr', true)" id="lang-tr" class="px-2 py-1 text-xs rounded font-bold transition text-[#8AB8A0] hover:text-white hover:bg-[#12291E]">🇹🇷 TR</button>
+        <button type="button" onclick="setLanguage('ar', true)" id="lang-ar" class="px-2 py-1 text-xs rounded font-bold transition text-[#8AB8A0] hover:text-white hover:bg-[#12291E]">🇸🇦 AR</button>
       </div>
-      <div class="w-7 h-7 rounded-full bg-[#0E1717] flex items-center justify-center text-[#7E9F9D] text-xs">✕</div>
+      <div class="hidden sm:flex px-2.5 py-1 rounded-full bg-[#08120D] items-center justify-center text-[#34D399] text-xs font-bold border border-[#1B3B2B]">
+        STATE 2796
+      </div>
     </div>
 
-    <!-- Pantalla de Convocatoria Cerrada -->
+    <!-- Pantalla de Carga Inicial mientras consulta el horario UTC -->
+    <div id="loadingNotice" class="p-10 text-center">
+      <div class="text-3xl mb-3 animate-pulse">⏳</div>
+      <p id="t-loadingDesc" class="text-[#8AB8A0] text-sm">Verificando horario del servidor (UTC)...</p>
+    </div>
+
+    <!-- Pantalla de Convocatoria Cerrada o Aún No Abierta -->
     <div id="closedNotice" class="p-10 text-center hidden">
       <div class="text-5xl mb-4">🔒</div>
-      <h2 id="t-closedTitle" class="text-xl font-bold text-[#F2FAF9] mb-2">Convocatoria Cerrada</h2>
-      <p id="t-closedDesc" class="text-[#7E9F9D] text-sm max-w-md mx-auto">El plazo de inscripción ha finalizado o aún no se encuentra abierto. Las asignaciones de horarios se publicarán pronto.</p>
+      <h2 id="t-closedTitle" class="text-xl font-bold text-[#F0FDF4] mb-2">Inscripciones Cerradas</h2>
+      <p id="t-closedDesc" class="text-[#8AB8A0] text-sm max-w-md mx-auto">El plazo de inscripción ha finalizado o aún no ha comenzado. El cuadrante oficial se publicará pronto.</p>
+      <p id="t-scheduleWindow" class="text-[#34D399] text-xs font-mono mt-4 font-bold"></p>
     </div>
 
     <!-- Contenido del Formulario -->
-    <div id="formContainer" class="px-6 pb-6 pt-2">
-      <h1 id="t-title" class="text-xl sm:text-2xl font-bold text-center mb-5 text-[#F2FAF9] tracking-wide">Semana de Preparación del estado 2796</h1>
+    <div id="formContainer" class="px-4 sm:px-6 pb-6 pt-2 hidden">
+      <h1 id="t-title" class="text-lg sm:text-2xl font-bold text-center mb-5 text-[#F0FDF4] tracking-wide">Semana de Preparación - Estado 2796</h1>
 
-      <form id="savingsForm" class="space-y-5">
+      <form id="savingsForm" class="space-y-4 sm:space-y-5" novalidate>
         
-        <!-- Nombre Jugador / ID -->
-        <div>
-          <label id="t-playerName" class="block text-[11px] uppercase tracking-wider text-[#7E9F9D] font-semibold mb-1.5">Nombre del Jugador o ID</label>
-          <input type="text" id="jugador" required placeholder="Tu Nick exacto o ID" class="w-full input-box rounded-xl px-4 py-2.5 text-sm transition">
+        <!-- Nombre Jugador e ID (Obligatorios) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label id="t-userName" class="block text-[11px] uppercase tracking-wider text-[#9CC7B1] font-semibold mb-1.5">Nombre de Jugador (IGN) <span class="text-[#34D399]">*</span></label>
+            <input type="text" id="jugador" required placeholder="Tu nombre exacto en el juego" class="w-full input-box rounded-xl px-4 py-2.5 text-sm">
+          </div>
+          <div>
+            <label id="t-userId" class="block text-[11px] uppercase tracking-wider text-[#9CC7B1] font-semibold mb-1.5">ID de Jugador (Copiar y Pegar) <span class="text-[#34D399]">*</span></label>
+            <input type="text" id="jugadorId" required placeholder="Pega tu ID aquí" class="w-full input-box rounded-xl px-4 py-2.5 text-sm">
+          </div>
         </div>
 
-        <!-- Alianzas -->
+        <!-- Alianzas (Obligatorio) -->
         <div>
+          <label id="t-alliance" class="block text-[11px] uppercase tracking-wider text-[#9CC7B1] font-semibold mb-2 text-center">Alianza <span class="text-[#34D399]">*</span></label>
           <div class="flex flex-wrap justify-center gap-2" id="allianceContainer">
+            <button type="button" class="alliance-btn badge-btn text-xs px-3 py-1.5 rounded-full" data-val="KOR">KOR</button>
             <button type="button" class="alliance-btn badge-btn text-xs px-3 py-1.5 rounded-full" data-val="LFO">LFO</button>
             <button type="button" class="alliance-btn badge-btn text-xs px-3 py-1.5 rounded-full" data-val="BLO">BLO</button>
-            <button type="button" class="alliance-btn badge-btn text-xs px-3 py-1.5 rounded-full" data-val="KOR">KOR</button>
+            <button type="button" class="alliance-btn badge-btn text-xs px-3 py-1.5 rounded-full" data-val="HOD">HOD</button>
             <button type="button" class="alliance-btn badge-btn text-xs px-3 py-1.5 rounded-full" data-val="POL">POL</button>
-            <button type="button" class="alliance-btn badge-btn text-xs px-3 py-1.5 rounded-full" data-val="NEX">NEX</button>
-            <button type="button" class="alliance-btn badge-btn text-xs px-3 py-1.5 rounded-full" data-val="PXR">PXR</button>
-            <button type="button" class="alliance-btn badge-btn text-xs px-3 py-1.5 rounded-full" data-val="THE">The</button>
+            <button type="button" class="alliance-btn badge-btn text-xs px-3 py-1.5 rounded-full" data-val="PXR">PRX</button>
+            <button type="button" class="alliance-btn badge-btn text-xs px-3 py-1.5 rounded-full" data-val="OTHER">OTHER</button>
           </div>
         </div>
 
-        <!-- Recursos por Intervalos -->
+        <!-- Recursos por Intervalos (Obligatorios con opción vacía por defecto) -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
           <div>
-            <label id="t-fireCrystal" class="block text-[10px] tracking-wider text-[#7E9F9D] font-bold mb-1.5 uppercase text-center">Cristal de Fuego</label>
+            <label id="t-fireCrystal" class="block text-[10px] tracking-wider text-[#9CC7B1] font-bold mb-1.5 uppercase text-center">Cristal de Fuego (CF) <span class="text-[#34D399]">*</span></label>
             <div class="flex items-center gap-2">
               <div class="icon-box">
-                <img src="img/cristal.png" alt="Cristal" onerror="this.outerHTML='<span>🔥</span>'" class="w-7 h-7 object-contain">
+                <img src="img/cristal.png" alt="Cristal" onerror="this.outerHTML='🔥'" class="w-7 h-7 object-contain">
               </div>
-              <select id="cristalFuego" class="w-full input-box rounded-xl px-3 py-2 text-xs"></select>
+              <select id="cristalFuego" required class="w-full input-box rounded-xl px-3 py-2 text-xs resource-select"></select>
             </div>
           </div>
 
           <div>
-            <label id="t-refined" class="block text-[10px] tracking-wider text-[#7E9F9D] font-bold mb-1.5 uppercase text-center">Cristal de Fuego Refinado</label>
+            <label id="t-refined" class="block text-[10px] tracking-wider text-[#9CC7B1] font-bold mb-1.5 uppercase text-center">CF Refinado <span class="text-[#34D399]">*</span></label>
             <div class="flex items-center gap-2">
               <div class="icon-box">
-                <img src="img/refinado.png" alt="Refinado" onerror="this.outerHTML='<span>💎</span>'" class="w-7 h-7 object-contain">
+                <img src="img/refinado.png" alt="Refinado" onerror="this.outerHTML='💎'" class="w-7 h-7 object-contain">
               </div>
-              <select id="refinado" class="w-full input-box rounded-xl px-3 py-2 text-xs"></select>
+              <select id="refinado" required class="w-full input-box rounded-xl px-3 py-2 text-xs resource-select"></select>
             </div>
           </div>
 
           <div>
-            <label id="t-fragments" class="block text-[10px] tracking-wider text-[#7E9F9D] font-bold mb-1.5 uppercase text-center">Fragmentos</label>
+            <label id="t-fragments" class="block text-[10px] tracking-wider text-[#9CC7B1] font-bold mb-1.5 uppercase text-center">Fragmentos de CF <span class="text-[#34D399]">*</span></label>
             <div class="flex items-center gap-2">
               <div class="icon-box">
-                <img src="img/fragmentos.png" alt="Fragmentos" onerror="this.outerHTML='<span>🔺</span>'" class="w-7 h-7 object-contain">
+                <img src="img/fragmentos.png" alt="Fragmentos" onerror="this.outerHTML='🔺'" class="w-7 h-7 object-contain">
               </div>
-              <select id="fragmentos" class="w-full input-box rounded-xl px-3 py-2 text-xs"></select>
+              <select id="fragmentos" required class="w-full input-box rounded-xl px-3 py-2 text-xs resource-select"></select>
             </div>
           </div>
         </div>
 
-        <!-- Aceleradores por Intervalos (Días) -->
+        <!-- Aceleradores por Intervalos (Obligatorios con opción vacía por defecto) -->
         <div class="pt-2">
-          <p id="t-speedupsHeader" class="text-[11px] font-bold text-center tracking-wider text-[#7E9F9D] uppercase mb-3">Aceleradores (Días)</p>
+          <p id="t-speedupsHeader" class="text-[11px] font-bold text-center tracking-wider text-[#9CC7B1] uppercase mb-3">Aceleradores (Días) <span class="text-[#34D399]">*</span></p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label id="t-general" class="block text-[10px] uppercase text-[#7E9F9D] font-semibold mb-1">General</label>
+              <label id="t-general" class="block text-[10px] uppercase text-[#9CC7B1] font-semibold mb-1">Generales <span class="text-[#34D399]">*</span></label>
               <div class="flex items-center gap-2">
                 <div class="icon-box">
-                  <img src="img/acel_general.png" alt="General" onerror="this.outerHTML='<span>⏩</span>'" class="w-7 h-7 object-contain">
+                  <img src="img/acel_general.png" alt="General" onerror="this.outerHTML='⏩'" class="w-7 h-7 object-contain">
                 </div>
-                <select id="acelGeneral" class="w-full input-box rounded-xl px-3 py-2 text-xs"></select>
+                <select id="acelGeneral" required class="w-full input-box rounded-xl px-3 py-2 text-xs resource-select"></select>
               </div>
             </div>
 
             <div>
-              <label id="t-training" class="block text-[10px] uppercase text-[#7E9F9D] font-semibold mb-1">Entrenamiento</label>
+              <label id="t-training" class="block text-[10px] uppercase text-[#9CC7B1] font-semibold mb-1">Entrenamiento <span class="text-[#34D399]">*</span></label>
               <div class="flex items-center gap-2">
                 <div class="icon-box">
-                  <img src="img/acel_entrenamiento.png" alt="Entrenamiento" onerror="this.outerHTML='<span>⚔️</span>'" class="w-7 h-7 object-contain">
+                  <img src="img/acel_entrenamiento.png" alt="Entrenamiento" onerror="this.outerHTML='⚔️'" class="w-7 h-7 object-contain">
                 </div>
-                <select id="acelEntrenamiento" class="w-full input-box rounded-xl px-3 py-2 text-xs"></select>
+                <select id="acelEntrenamiento" required class="w-full input-box rounded-xl px-3 py-2 text-xs resource-select"></select>
               </div>
             </div>
 
             <div>
-              <label id="t-construction" class="block text-[10px] uppercase text-[#7E9F9D] font-semibold mb-1">Construcción</label>
+              <label id="t-construction" class="block text-[10px] uppercase text-[#9CC7B1] font-semibold mb-1">Construcción <span class="text-[#34D399]">*</span></label>
               <div class="flex items-center gap-2">
                 <div class="icon-box">
-                  <img src="img/acel_construccion.png" alt="Construcción" onerror="this.outerHTML='<span>🔨</span>'" class="w-7 h-7 object-contain">
+                  <img src="img/acel_construccion.png" alt="Construcción" onerror="this.outerHTML='🔨'" class="w-7 h-7 object-contain">
                 </div>
-                <select id="acelConstruccion" class="w-full input-box rounded-xl px-3 py-2 text-xs"></select>
+                <select id="acelConstruccion" required class="w-full input-box rounded-xl px-3 py-2 text-xs resource-select"></select>
               </div>
             </div>
 
             <div>
-              <label id="t-research" class="block text-[10px] uppercase text-[#7E9F9D] font-semibold mb-1">Investigación</label>
+              <label id="t-research" class="block text-[10px] uppercase text-[#9CC7B1] font-semibold mb-1">Investigación <span class="text-[#34D399]">*</span></label>
               <div class="flex items-center gap-2">
                 <div class="icon-box">
-                  <img src="img/acel_investigacion.png" alt="Investigación" onerror="this.outerHTML='<span>🔬</span>'" class="w-7 h-7 object-contain">
+                  <img src="img/acel_investigacion.png" alt="Investigación" onerror="this.outerHTML='🔬'" class="w-7 h-7 object-contain">
                 </div>
-                <select id="acelInvestigacion" class="w-full input-box rounded-xl px-3 py-2 text-xs"></select>
+                <select id="acelInvestigacion" required class="w-full input-box rounded-xl px-3 py-2 text-xs resource-select"></select>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 3 Prioridades por Día -->
-        <div class="pt-2 border-t border-[#1F3333]">
-          <p id="t-scheduleHeader" class="text-[11px] font-bold text-center tracking-wider text-[#7E9F9D] uppercase mb-2">Inscripción por Prioridades (3 opciones por día)</p>
+        <!-- 3 Intervalos de Prioridad por Día (P1 Obligatoria) -->
+        <div class="pt-3 border-t border-[#1B3B2B]">
+          <p id="t-scheduleHeader" class="text-[11px] font-bold text-center tracking-wider text-[#9CC7B1] uppercase mb-1">Disponibilidad Horaria (Preferencias) <span class="text-[#34D399]">*</span></p>
+          <p id="t-scheduleSub" class="text-center text-[10px] text-[#8AB8A0] mb-1">La 1ª Preferencia es obligatoria para cada día. Elige tus franjas o marca 'No participo'.</p>
+          <p id="t-utcSubNotice" class="text-center text-[10px] text-[#6EE7B7] mb-3">🕒 Horario UTC (Hora del Servidor)</p>
           
-          <div class="flex items-center justify-center gap-2 mb-4">
-            <input type="checkbox" id="syncSchedule" class="rounded accent-[#2DD4BF] w-4 h-4 cursor-pointer">
-            <label for="syncSchedule" id="t-syncLabel" class="text-xs text-[#2DD4BF] font-medium cursor-pointer">Aplicar las 3 opciones del Lunes a todos los días</label>
+          <div class="flex items-center justify-center gap-2 mb-4 bg-[#09150F] p-2.5 rounded-lg border border-[#1B3B2B]">
+            <input type="checkbox" id="syncSchedule" class="rounded accent-[#10B981] w-4 h-4 cursor-pointer">
+            <label for="syncSchedule" id="t-syncLabel" class="text-xs text-[#34D399] font-medium cursor-pointer select-none">Aplicar los intervalos del Lunes a todos los días</label>
           </div>
 
           <!-- Lunes -->
-          <div class="mb-4 bg-[#0E1717] p-3 rounded-xl border border-[#1F3333]">
-            <label id="t-mon" class="block text-xs uppercase text-[#2DD4BF] font-bold mb-2">Lunes (Construcción)</label>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-              <select id="lunesP1" class="input-box rounded-lg p-2 text-xs"></select>
-              <select id="lunesP2" class="input-box rounded-lg p-2 text-xs"></select>
-              <select id="lunesP3" class="input-box rounded-lg p-2 text-xs"></select>
+          <div class="mb-4 bg-[#08120D] p-3.5 rounded-xl border border-[#1B3B2B] space-y-2.5">
+            <label id="t-mon" class="block text-xs uppercase text-[#34D399] font-bold">Lunes (Construcción) <span class="text-[#34D399]">*</span></label>
+            
+            <!-- P1 (Obligatorio) -->
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 items-center bg-[#0C1C14] p-2 rounded-lg border border-[#1F4733]">
+              <div class="sm:col-span-3 text-xs font-semibold text-[#6EE7B7] priority-title-1 flex items-center gap-1">
+                <span>1ª Opción:</span><span class="text-[#34D399]">*</span>
+              </div>
+              <div class="sm:col-span-4 flex items-center gap-1.5">
+                <span class="text-[10px] text-[#8AB8A0] uppercase font-bold lbl-from w-10">Desde</span>
+                <select id="lunesP1_desde" required class="input-box rounded-lg p-2 text-xs w-full schedule-select"></select>
+              </div>
+              <div class="sm:col-span-5 flex items-center gap-1.5">
+                <span class="text-[10px] text-[#8AB8A0] uppercase font-bold lbl-to w-10">Hasta</span>
+                <select id="lunesP1_hasta" required class="input-box rounded-lg p-2 text-xs w-full schedule-select"></select>
+              </div>
+            </div>
+
+            <!-- P2 -->
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 items-center bg-[#0C1C14] p-2 rounded-lg border border-[#153023]">
+              <div class="sm:col-span-3 text-xs font-semibold text-[#C6E8D7] priority-title-2">2ª Opción:</div>
+              <div class="sm:col-span-4 flex items-center gap-1.5">
+                <span class="text-[10px] text-[#8AB8A0] uppercase font-bold lbl-from w-10">Desde</span>
+                <select id="lunesP2_desde" class="input-box rounded-lg p-2 text-xs w-full schedule-select"></select>
+              </div>
+              <div class="sm:col-span-5 flex items-center gap-1.5">
+                <span class="text-[10px] text-[#8AB8A0] uppercase font-bold lbl-to w-10">Hasta</span>
+                <select id="lunesP2_hasta" class="input-box rounded-lg p-2 text-xs w-full schedule-select"></select>
+              </div>
+            </div>
+
+            <!-- P3 -->
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 items-center bg-[#0C1C14] p-2 rounded-lg border border-[#153023]">
+              <div class="sm:col-span-3 text-xs font-semibold text-[#C6E8D7] priority-title-3">3ª Opción:</div>
+              <div class="sm:col-span-4 flex items-center gap-1.5">
+                <span class="text-[10px] text-[#8AB8A0] uppercase font-bold lbl-from w-10">Desde</span>
+                <select id="lunesP3_desde" class="input-box rounded-lg p-2 text-xs w-full schedule-select"></select>
+              </div>
+              <div class="sm:col-span-5 flex items-center gap-1.5">
+                <span class="text-[10px] text-[#8AB8A0] uppercase font-bold lbl-to w-10">Hasta</span>
+                <select id="lunesP3_hasta" class="input-box rounded-lg p-2 text-xs w-full schedule-select"></select>
+              </div>
             </div>
           </div>
 
           <!-- Martes -->
-          <div class="mb-4 bg-[#0E1717] p-3 rounded-xl border border-[#1F3333]">
-            <label id="t-tue" class="block text-xs uppercase text-[#2DD4BF] font-bold mb-2">Martes (Investigación)</label>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-              <select id="martesP1" class="input-box rounded-lg p-2 text-xs"></select>
-              <select id="martesP2" class="input-box rounded-lg p-2 text-xs"></select>
-              <select id="martesP3" class="input-box rounded-lg p-2 text-xs"></select>
+          <div class="mb-4 bg-[#08120D] p-3.5 rounded-xl border border-[#1B3B2B] space-y-2.5">
+            <label id="t-tue" class="block text-xs uppercase text-[#34D399] font-bold">Martes (Investigación) <span class="text-[#34D399]">*</span></label>
+            
+            <!-- P1 (Obligatorio) -->
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 items-center bg-[#0C1C14] p-2 rounded-lg border border-[#1F4733]">
+              <div class="sm:col-span-3 text-xs font-semibold text-[#6EE7B7] priority-title-1 flex items-center gap-1">
+                <span>1ª Opción:</span><span class="text-[#34D399]">*</span>
+              </div>
+              <div class="sm:col-span-4 flex items-center gap-1.5">
+                <span class="text-[10px] text-[#8AB8A0] uppercase font-bold lbl-from w-10">Desde</span>
+                <select id="martesP1_desde" required class="input-box rounded-lg p-2 text-xs w-full schedule-select"></select>
+              </div>
+              <div class="sm:col-span-5 flex items-center gap-1.5">
+                <span class="text-[10px] text-[#8AB8A0] uppercase font-bold lbl-to w-10">Hasta</span>
+                <select id="martesP1_hasta" required class="input-box rounded-lg p-2 text-xs w-full schedule-select"></select>
+              </div>
+            </div>
+
+            <!-- P2 -->
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 items-center bg-[#0C1C14] p-2 rounded-lg border border-[#153023]">
+              <div class="sm:col-span-3 text-xs font-semibold text-[#C6E8D7] priority-title-2">2ª Opción:</div>
+              <div class="sm:col-span-4 flex items-center gap-1.5">
+                <span class="text-[10px] text-[#8AB8A0] uppercase font-bold lbl-from w-10">Desde</span>
+                <select id="martesP2_desde" class="input-box rounded-lg p-2 text-xs w-full schedule-select"></select>
+              </div>
+              <div class="sm:col-span-5 flex items-center gap-1.5">
+                <span class="text-[10px] text-[#8AB8A0] uppercase font-bold lbl-to w-10">Hasta</span>
+                <select id="martesP2_hasta" class="input-box rounded-lg p-2 text-xs w-full schedule-select"></select>
+              </div>
+            </div>
+
+            <!-- P3 -->
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 items-center bg-[#0C1C14] p-2 rounded-lg border border-[#153023]">
+              <div class="sm:col-span-3 text-xs font-semibold text-[#C6E8D7] priority-title-3">3ª Opción:</div>
+              <div class="sm:col-span-4 flex items-center gap-1.5">
+                <span class="text-[10px] text-[#8AB8A0] uppercase font-bold lbl-from w-10">Desde</span>
+                <select id="martesP3_desde" class="input-box rounded-lg p-2 text-xs w-full schedule-select"></select>
+              </div>
+              <div class="sm:col-span-5 flex items-center gap-1.5">
+                <span class="text-[10px] text-[#8AB8A0] uppercase font-bold lbl-to w-10">Hasta</span>
+                <select id="martesP3_hasta" class="input-box rounded-lg p-2 text-xs w-full schedule-select"></select>
+              </div>
             </div>
           </div>
 
           <!-- Jueves -->
-          <div class="bg-[#0E1717] p-3 rounded-xl border border-[#1F3333]">
-            <label id="t-thu" class="block text-xs uppercase text-[#2DD4BF] font-bold mb-2">Jueves (Entrenamiento)</label>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-              <select id="juevesP1" class="input-box rounded-lg p-2 text-xs"></select>
-              <select id="juevesP2" class="input-box rounded-lg p-2 text-xs"></select>
-              <select id="juevesP3" class="input-box rounded-lg p-2 text-xs"></select>
+          <div class="bg-[#08120D] p-3.5 rounded-xl border border-[#1B3B2B] space-y-2.5">
+            <label id="t-thu" class="block text-xs uppercase text-[#34D399] font-bold">Jueves (Entrenamiento) <span class="text-[#34D399]">*</span></label>
+            
+            <!-- P1 (Obligatorio) -->
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 items-center bg-[#0C1C14] p-2 rounded-lg border border-[#1F4733]">
+              <div class="sm:col-span-3 text-xs font-semibold text-[#6EE7B7] priority-title-1 flex items-center gap-1">
+                <span>1ª Opción:</span><span class="text-[#34D399]">*</span>
+              </div>
+              <div class="sm:col-span-4 flex items-center gap-1.5">
+                <span class="text-[10px] text-[#8AB8A0] uppercase font-bold lbl-from w-10">Desde</span>
+                <select id="juevesP1_desde" required class="input-box rounded-lg p-2 text-xs w-full schedule-select"></select>
+              </div>
+              <div class="sm:col-span-5 flex items-center gap-1.5">
+                <span class="text-[10px] text-[#8AB8A0] uppercase font-bold lbl-to w-10">Hasta</span>
+                <select id="juevesP1_hasta" required class="input-box rounded-lg p-2 text-xs w-full schedule-select"></select>
+              </div>
+            </div>
+
+            <!-- P2 -->
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 items-center bg-[#0C1C14] p-2 rounded-lg border border-[#153023]">
+              <div class="sm:col-span-3 text-xs font-semibold text-[#C6E8D7] priority-title-2">2ª Opción:</div>
+              <div class="sm:col-span-4 flex items-center gap-1.5">
+                <span class="text-[10px] text-[#8AB8A0] uppercase font-bold lbl-from w-10">Desde</span>
+                <select id="juevesP2_desde" class="input-box rounded-lg p-2 text-xs w-full schedule-select"></select>
+              </div>
+              <div class="sm:col-span-5 flex items-center gap-1.5">
+                <span class="text-[10px] text-[#8AB8A0] uppercase font-bold lbl-to w-10">Hasta</span>
+                <select id="juevesP2_hasta" class="input-box rounded-lg p-2 text-xs w-full schedule-select"></select>
+              </div>
+            </div>
+
+            <!-- P3 -->
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 items-center bg-[#0C1C14] p-2 rounded-lg border border-[#153023]">
+              <div class="sm:col-span-3 text-xs font-semibold text-[#C6E8D7] priority-title-3">3ª Opción:</div>
+              <div class="sm:col-span-4 flex items-center gap-1.5">
+                <span class="text-[10px] text-[#8AB8A0] uppercase font-bold lbl-from w-10">Desde</span>
+                <select id="juevesP3_desde" class="input-box rounded-lg p-2 text-xs w-full schedule-select"></select>
+              </div>
+              <div class="sm:col-span-5 flex items-center gap-1.5">
+                <span class="text-[10px] text-[#8AB8A0] uppercase font-bold lbl-to w-10">Hasta</span>
+                <select id="juevesP3_hasta" class="input-box rounded-lg p-2 text-xs w-full schedule-select"></select>
+              </div>
             </div>
           </div>
         </div>
 
         <button type="submit" id="submitBtn" class="btn-action w-full py-3.5 mt-4 rounded-xl font-bold shadow-lg cursor-pointer">
-          Reserva tu hueco
+          Confirmar Inscripción
         </button>
 
-        <p id="msgStatus" class="text-center text-xs font-semibold hidden"></p>
+        <div id="inlineAlert" class="p-3 rounded-xl text-center text-xs font-semibold hidden"></div>
       </form>
     </div>
   </div>
 
+  <!-- Modal no intrusivo para advertencia de UTC -->
+  <div id="utcModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop hidden">
+    <div class="bg-[#0C1A13] border-2 border-[#10B981] max-w-md w-full rounded-2xl p-6 shadow-2xl relative text-center">
+      <div class="w-12 h-12 rounded-full bg-[#0F291E] text-[#34D399] flex items-center justify-center mx-auto mb-3 text-2xl">
+        ⚠️
+      </div>
+      <h3 id="utcModalTitle" class="text-base font-bold text-white mb-2 uppercase tracking-wider">AVISO HORARIO (UTC)</h3>
+      <p id="utcModalBody" class="text-sm text-[#C6E8D7] mb-5 leading-relaxed font-medium">
+        Todos los horarios corresponden a la hora del servidor (UTC). Revisa la diferencia horaria con tu país antes de elegir.
+      </p>
+      <button type="button" id="utcCloseBtn" class="btn-action w-full py-2.5 rounded-xl font-bold text-sm cursor-pointer">
+        Entendido
+      </button>
+    </div>
+  </div>
+
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzEbAo62L29vusW6tuODcr7V-W6BA6IcwUA20X4oL6CVCl9yLrzOlGgYikX1VIf7t6VvQ/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwhy1IxaGrbPCTdC9SRXNdhutUjiCiLNE7WdZ5MAks1g5rfuy90PRjjiWjcPWEAYdRSiQ/exec";
 
     const translations = {
       es: {
-        title: "Semana de Preparación del estado 2796", playerName: "Nombre del Jugador o ID", playerPlaceholder: "Tu Nick exacto o ID",
-        fireCrystal: "Cristal de Fuego", refined: "Cristal de Fuego Refinado", fragments: "Fragmentos",
-        speedupsHeader: "Aceleradores (Días)", general: "General", training: "Entrenamiento",
+        title: "Semana de Preparación - Estado 2796",
+        userName: "Nombre de Jugador (IGN)", userPlaceholder: "Tu nombre exacto en el juego",
+        userId: "ID de Jugador (Copiar y Pegar)", idPlaceholder: "Pega tu ID aquí",
+        allianceLabel: "Alianza",
+        fireCrystal: "Cristal de Fuego (CF)", refined: "CF Refinado", fragments: "Fragmentos de CF",
+        speedupsHeader: "Aceleradores (Días)", general: "Generales", training: "Entrenamiento",
         construction: "Construcción", research: "Investigación",
-        scheduleHeader: "Inscripción por Prioridades (3 opciones por día)", syncLabel: "Aplicar las 3 opciones del Lunes a todos los días",
+        scheduleHeader: "Disponibilidad Horaria (Preferencias)",
+        scheduleSub: "La 1ª Preferencia es obligatoria para cada día. Elige tus franjas o marca 'No participo'.",
+        syncLabel: "Aplicar los intervalos del Lunes a todos los días",
+        utcSub: "🕒 Horario UTC (Hora del Servidor)",
         mon: "Lunes (Construcción)", tue: "Martes (Investigación)", thu: "Jueves (Entrenamiento)",
-        submit: "Reserva tu hueco", sending: "Enviando...", success: "¡Reserva enviada correctamente!",
-        error: "Error al enviar los datos.", alertAlliance: "Por favor, selecciona una alianza.",
-        noParticipate: "-- No participa --", p1: "1ª Opción: ", p2: "2ª Opción: ", p3: "3ª Opción: ",
-        unlimited: "Ilimitado", dayUnit: "d",
-        closedTitle: "Convocatoria Cerrada", closedDesc: "El plazo de inscripción ha finalizado o aún no se encuentra abierto."
+        from: "Desde", to: "Hasta",
+        p1: "1ª Opción:", p2: "2ª Opción:", p3: "3ª Opción:",
+        selectPlaceholder: "-- Seleccionar --",
+        noParticipate: "-- No participo --",
+        submit: "Confirmar Inscripción", sending: "Enviando...", success: "¡Inscripción enviada con éxito!",
+        error: "Error al enviar los datos. Inténtalo de nuevo.",
+        alertAlliance: "Por favor, elige tu alianza.",
+        alertRequired: "Introduce tu nombre de jugador, ID y alianza.",
+        alertResources: "Completa los 3 campos de Cristales y Fragmentos.",
+        alertSpeedups: "Completa los 4 campos de aceleradores.",
+        alertScheduleP1: "La 1ª Opción (Desde y Hasta) es obligatoria para Lunes, Martes y Jueves.",
+        alertInvalidRange: "La hora 'Hasta' debe ser posterior a la hora 'Desde'.",
+        unlimited: "Ilimitado", dayUnit: "días",
+        loadingDesc: "Verificando horario del servidor (UTC)...",
+        notOpenTitle: "Inscripciones Aún No Abiertas",
+        notOpenDesc: "El formulario todavía no está disponible. Vuelve dentro del horario programado.",
+        closedTitle: "Inscripciones Cerradas",
+        closedDesc: "El plazo de inscripción ha finalizado. El cuadrante oficial se publicará pronto.",
+        opensAt: "Apertura", closesAt: "Cierre",
+        utcModalTitle: "AVISO HORARIO (UTC)",
+        utcAlert: "Todos los horarios corresponden a la hora del servidor (UTC). Revisa la diferencia horaria con tu país antes de elegir.",
+        understood: "Entendido"
       },
+
       en: {
-        title: "State 2796 Preparation Week", playerName: "Player Name or ID", playerPlaceholder: "Your exact in-game Nick or ID",
-        fireCrystal: "Fire Crystals", refined: "RFC", fragments: "FC Shard",
+        title: "State 2796 Preparation Week",
+        userName: "In-Game Name (IGN)", userPlaceholder: "Exact in-game name",
+        userId: "Player ID (Copy & Paste)", idPlaceholder: "Paste your Player ID here",
+        allianceLabel: "Alliance",
+        fireCrystal: "Fire Crystals (FC)", refined: "Refined Fire Crystals (RFC)", fragments: "FC Shards",
         speedupsHeader: "Speedups (Days)", general: "General", training: "Training",
-        construction: "Construction", research: "Research",
-        scheduleHeader: "Sign-up by Priorities (3 choices per day)", syncLabel: "Apply Monday's 3 choices to all days",
-        mon: "Monday (Construction)", tue: "Tuesday (Research)", thu: "Thursday (Training)",
-        submit: "Reserve your slot", sending: "Submitting...", success: "Reservation sent successfully!",
-        error: "Error submitting data.", alertAlliance: "Please select an alliance.",
-        noParticipate: "-- Do not participate --", p1: "1st Choice: ", p2: "2nd Choice: ", p3: "3rd Choice: ",
-        unlimited: "Unlimited", dayUnit: "d",
-        closedTitle: "Registrations Closed", closedDesc: "The sign-up period has ended or is not open yet."
+        construction: "Building", research: "Research",
+        scheduleHeader: "Availability Windows (Preferences)",
+        scheduleSub: "1st Preference is required for each day. Select your intervals or choose 'Not participating'.",
+        syncLabel: "Apply Monday's time slots to all days",
+        utcSub: "🕒 All times in UTC (Server Time)",
+        mon: "Monday (Building)", tue: "Tuesday (Research)", thu: "Thursday (Training)",
+        from: "From", to: "To",
+        p1: "1st Choice:", p2: "2nd Choice:", p3: "3rd Choice:",
+        selectPlaceholder: "-- Select --",
+        noParticipate: "-- Not participating --",
+        submit: "Submit Registration", sending: "Submitting...", success: "Registration submitted successfully!",
+        error: "Failed to submit. Please try again.",
+        alertAlliance: "Please select an alliance.",
+        alertRequired: "Please enter your IGN, Player ID, and select an alliance.",
+        alertResources: "Please choose an option for all 3 Crystal and Shard fields.",
+        alertSpeedups: "Please select a range for all 4 speedup categories.",
+        alertScheduleP1: "Please complete your 1st Choice (From and To) for Monday, Tuesday, and Thursday.",
+        alertInvalidRange: "The end time ('To') must be later than the start time ('From').",
+        unlimited: "Unlimited", dayUnit: "days",
+        loadingDesc: "Checking server schedule (UTC)...",
+        notOpenTitle: "Registrations Not Open Yet",
+        notOpenDesc: "The form is not open yet. Please come back during the scheduled UTC window.",
+        closedTitle: "Registrations Closed",
+        closedDesc: "The sign-up window has ended. Schedule assignments will be published soon.",
+        opensAt: "Opens", closesAt: "Closed",
+        utcModalTitle: "TIME ZONE NOTICE (UTC)",
+        utcAlert: "All schedules are in UTC (Server Time). Please check your local time difference before picking an interval.",
+        understood: "Got it"
       },
+
       fr: {
-        title: "Semaine de Préparation de l'État 2796", playerName: "Nom du joueur ou ID", playerPlaceholder: "Votre pseudo exact ou ID",
-        fireCrystal: "Cristal de feu", refined: "Cristal de feu raffiné", fragments: "Éclat de cristal de feu",
-        speedupsHeader: "Accélérateurs (Jours)", general: "Général", training: "Entraînement",
+        title: "Semaine de Préparation - État 2796",
+        userName: "Pseudo en jeu (IGN)", userPlaceholder: "Votre pseudo exact en jeu",
+        userId: "ID Joueur (Copier-Coller)", idPlaceholder: "Collez votre identifiant ici",
+        allianceLabel: "Alliance",
+        fireCrystal: "Cristaux de Feu (CF)", refined: "CF Raffinés", fragments: "Éclats de CF",
+        speedupsHeader: "Accélérateurs (Jours)", general: "Généraux", training: "Entraînement",
         construction: "Construction", research: "Recherche",
-        scheduleHeader: "Inscription par Priorités (3 choix par jour)", syncLabel: "Appliquer les 3 choix du lundi à tous les jours",
+        scheduleHeader: "Plages de Disponibilité (Préférences)",
+        scheduleSub: "Le 1er choix est obligatoire pour chaque jour. Indiquez vos créneaux ou sélectionnez 'Ne participe pas'.",
+        syncLabel: "Appliquer les créneaux du Lundi à tous les jours",
+        utcSub: "🕒 Horaires exprimés en UTC (Heure du Serveur)",
         mon: "Lundi (Construction)", tue: "Mardi (Recherche)", thu: "Jeudi (Entraînement)",
-        submit: "Réservez votre créneau", sending: "Envoi en cours...", success: "Réservation envoyée avec succès !",
-        error: "Erreur lors de l'envoi.", alertAlliance: "Veuillez sélectionner une alliance.",
-        noParticipate: "-- Ne participe pas --", p1: "1er Choix: ", p2: "2ème Choix: ", p3: "3ème Choix: ",
-        unlimited: "Illimité", dayUnit: "j",
-        closedTitle: "Inscriptions Clôturées", closedDesc: "La période d'inscription est terminée ou pas encore ouverte."
+        from: "De", to: "À",
+        p1: "1er Choix :", p2: "2ème Choix :", p3: "3ème Choix :",
+        selectPlaceholder: "-- Choisir --",
+        noParticipate: "-- Ne participe pas --",
+        submit: "Valider l'inscription", sending: "Envoi en cours...", success: "Inscription enregistrée avec succès !",
+        error: "Une erreur est survenue lors de l'envoi. Veuillez réessayer.",
+        alertAlliance: "Veuillez choisir votre alliance.",
+        alertRequired: "Veuillez renseigner votre pseudo, ID joueur et alliance.",
+        alertResources: "Veuillez sélectionner vos valeurs pour les 3 champs de Cristaux et Éclats.",
+        alertSpeedups: "Veuillez renseigner les 4 types d'accélérateurs.",
+        alertScheduleP1: "Le 1er choix (De / À) est obligatoire pour le Lundi, Mardi et Jeudi.",
+        alertInvalidRange: "L'heure de fin ('À') doit être postérieure à l'heure de début ('De').",
+        unlimited: "Illimité", dayUnit: "jours",
+        loadingDesc: "Vérification de l'horaire du serveur (UTC)...",
+        notOpenTitle: "Inscriptions Pas Encore Ouvertes",
+        notOpenDesc: "Le formulaire n'est pas encore ouvert. Revenez pendant le créneau prévu.",
+        closedTitle: "Inscriptions Clôturées",
+        closedDesc: "La période d'inscription est fermée. Le planning sera publié sous peu.",
+        opensAt: "Ouverture", closesAt: "Fermeture",
+        utcModalTitle: "RAPPEL FUSEAU HORAIRE (UTC)",
+        utcAlert: "Tous les créneaux sont calés sur l'heure UTC (Serveur). Pensez à vérifier votre décalage horaire avant de valider.",
+        understood: "Compris"
       },
+
       de: {
-        title: "Vorbereitungswoche für Staat 2796", playerName: "Spielername oder ID", playerPlaceholder: "Genauer Nickname oder ID",
-        fireCrystal: "Feuerkristall", refined: "Veredelter Feuerkristall", fragments: "Feuerkristall-Splitter",
-        speedupsHeader: "Beschleuniger (Tage)", general: "Allgemein", training: "Ausbildung",
+        title: "Vorbereitungswoche - Staat 2796",
+        userName: "Spielername (IGN)", userPlaceholder: "Exakter Ingame-Name",
+        userId: "Spieler-ID (Kopieren & Einfügen)", idPlaceholder: "ID hier einfügen",
+        allianceLabel: "Allianz",
+        fireCrystal: "Feuerkristalle (FK)", refined: "Veredelte FK", fragments: "FK-Splitter",
+        speedupsHeader: "Beschleuniger (Tage)", general: "Allgemein", training: "Truppen / Ausbildung",
         construction: "Bau", research: "Forschung",
-        scheduleHeader: "Anmeldung nach Prioritäten (3 Optionen pro Tag)", syncLabel: "Montags-Optionen auf alle Tage anwenden",
+        scheduleHeader: "Verfügbarkeitsfenster (Prioritäten)",
+        scheduleSub: "1. Priorität ist für jeden Tag Pflicht. Zeitfenster wählen oder 'Nimmt nicht teil' markieren.",
+        syncLabel: "Montags-Zeiten für alle Tage übernehmen",
+        utcSub: "🕒 Alle Angaben in UTC (Serverzeit)",
         mon: "Montag (Bau)", tue: "Dienstag (Forschung)", thu: "Donnerstag (Ausbildung)",
-        submit: "Slot reservieren", sending: "Wird gesendet...", success: "Reservierung erfolgreich gesendet!",
-        error: "Fehler beim Senden.", alertAlliance: "Bitte wählen Sie eine Allianz.",
-        noParticipate: "-- Nimmt nicht teil --", p1: "1. Wahl: ", p2: "2. Wahl: ", p3: "3. Wahl: ",
-        unlimited: "Unbegrenzt", dayUnit: "T",
-        closedTitle: "Anmeldung geschlossen", closedDesc: "Die Anmeldefrist ist abgelaufen oder noch nicht eröffnet."
+        from: "Von", to: "Bis",
+        p1: "1. Wahl:", p2: "2. Wahl:", p3: "3. Wahl:",
+        selectPlaceholder: "-- Bitte wählen --",
+        noParticipate: "-- Nimmt nicht teil --",
+        submit: "Anmeldung absenden", sending: "Wird gesendet...", success: "Erfolgreich angemeldet!",
+        error: "Fehler beim Senden. Bitte erneut versuchen.",
+        alertAlliance: "Bitte wähle deine Allianz aus.",
+        alertRequired: "Bitte Ingame-Namen, Spieler-ID und Allianz angeben.",
+        alertResources: "Bitte alle 3 Optionen für Feuerkristalle und Splitter ausfüllen.",
+        alertSpeedups: "Bitte alle 4 Beschleuniger-Kategorien angeben.",
+        alertScheduleP1: "Die 1. Wahl (Von / Bis) ist für Montag, Dienstag und Donnerstag erforderlich.",
+        alertInvalidRange: "Die Endzeit ('Bis') muss nach der Startzeit ('Von') liegen.",
+        unlimited: "Unbegrenzt", dayUnit: "Tage",
+        loadingDesc: "Serverzeit (UTC) wird überprüft...",
+        notOpenTitle: "Anmeldung Noch Nicht Geöffnet",
+        notOpenDesc: "Das Formular ist noch nicht freigeschaltet. Bitte schaue zum geplanten Zeitpunkt wieder vorbei.",
+        closedTitle: "Anmeldung Geschlossen",
+        closedDesc: "Die Registrierungsphase ist beendet. Der Einsatzplan folgt in Kürze.",
+        opensAt: "Öffnet", closesAt: "Geschlossen",
+        utcModalTitle: "HINWEIS ZUR ZEITZONE (UTC)",
+        utcAlert: "Alle Zeiten laufen über UTC (Serverzeit). Bitte beachte deine lokale Zeitverschiebung bei der Auswahl.",
+        understood: "Verstanden"
       },
+
       ru: {
-        title: "Неделя подготовки штата 2796", playerName: "Имя игрока или ID", playerPlaceholder: "Ваш точный ник или ID",
-        fireCrystal: "Огненный кристалл", refined: "Очищенный огненный кристалл", fragments: "Осколки огненного кристалла",
-        speedupsHeader: "Ускорители (Дни)", general: "Общие", training: "Тренировка",
-        construction: "Строительство", research: "Исследование",
-        scheduleHeader: "Запись по приоритетам (3 варианта в день)", syncLabel: "Применить варианты понедельника ко всем дням",
-        mon: "Понедельник (Строительство)", tue: "Вторник (Исследование)", thu: "Четверг (Тренировка)",
-        submit: "Забронировать место", sending: "Отправка...", success: "Бронирование успешно отправлено!",
-        error: "Ошибка при отправке.", alertAlliance: "Пожалуйста, выберите альянс.",
-        noParticipate: "-- Не участвует --", p1: "1-й выбор: ", p2: "2-й выбор: ", p3: "3-й выбор: ",
-        unlimited: "Неограниченно", dayUnit: "д",
-        closedTitle: "Регистрация закрыта", closedDesc: "Срок регистрации истек или еще не начался."
+        title: "Неделя подготовки — Штат 2796",
+        userName: "Игровой никнейм (IGN)", userPlaceholder: "Точный ник в игре",
+        userId: "ID игрока (Скопировать и вставить)", idPlaceholder: "Вставьте ваш ID сюда",
+        allianceLabel: "Альянс",
+        fireCrystal: "Огненные кристаллы (ОК)", refined: "Очищенные ОК", fragments: "Осколки ОК",
+        speedupsHeader: "Ускорители (Дни)", general: "Универсальные", training: "Тренировка",
+        construction: "Строительство", research: "Исследования",
+        scheduleHeader: "Интервалы доступности (Приоритеты)",
+        scheduleSub: "1-й выбор обязателен для каждого дня. Укажите интервалы или выберите 'Не участвую'.",
+        syncLabel: "Применить интервалы понедельника ко всем дням",
+        utcSub: "🕒 Все время указано в формате UTC (Время сервера)",
+        mon: "Понедельник (Строительство)", tue: "Вторник (Исследования)", thu: "Четверг (Тренировка)",
+        from: "С", to: "До",
+        p1: "1-й выбор:", p2: "2-й выбор:", p3: "3-й выбор:",
+        selectPlaceholder: "-- Выбрать --",
+        noParticipate: "-- Не участвую --",
+        submit: "Отправить заявку", sending: "Отправка...", success: "Заявка успешно отправлена!",
+        error: "Ошибка отправки. Попробуйте снова.",
+        alertAlliance: "Пожалуйста, выберите ваш альянс.",
+        alertRequired: "Укажите никнейм, ID игрока и выберите альянс.",
+        alertResources: "Заполните все 3 поля с кристаллами и осколками.",
+        alertSpeedups: "Заполните все 4 категории ускорителей.",
+        alertScheduleP1: "Необходимо заполнить 1-й выбор (С / До) на понедельник, вторник и четверг.",
+        alertInvalidRange: "Время окончания ('До') должно быть позже времени начала ('С').",
+        unlimited: "Без лимита", dayUnit: "дней",
+        loadingDesc: "Проверка времени сервера (UTC)...",
+        notOpenTitle: "Регистрация ещё не открыта",
+        notOpenDesc: "Форма пока закрыта. Возвращайтесь в указанное время открытия.",
+        closedTitle: "Регистрация закрыта",
+        closedDesc: "Срок подачи заявок истек. Расписание будет опубликовано позже.",
+        opensAt: "Открытие", closesAt: "Закрытие",
+        utcModalTitle: "ВАЖНО: ЧАСОВОЙ ПОЯС (UTC)",
+        utcAlert: "Все слоты рассчитываются по времени UTC (время сервера). Учитывайте разницу с вашим часовым поясом перед выбором.",
+        understood: "Понятно"
       },
+
       ko: {
-        title: "2796 서버 준비 주간", playerName: "플레이어 이름 또는 ID", playerPlaceholder: "정확한 닉네임 또는 ID 입력",
-        fireCrystal: "불의 수정", refined: "정제된 불의 수정", fragments: "불의 수정 조각",
-        speedupsHeader: "가속 (일)", general: "일반", training: "훈련",
-        construction: "건설", research: "연구",
-        scheduleHeader: "우선순위별 등록 (하루 3가지 선택)", syncLabel: "월요일 3가지 선택을 모든 요일에 적용",
+        title: "2796 서버 준비 주간",
+        userName: "게임 닉네임 (IGN)", userPlaceholder: "게임 내 정확한 닉네임 입력",
+        userId: "플레이어 ID (복사 & 붙여넣기)", idPlaceholder: "플레이어 ID를 여기에 붙여넣으세요",
+        allianceLabel: "연맹",
+        fireCrystal: "불의 수정 (불수)", refined: "정제된 불의 수정", fragments: "불수 조각",
+        speedupsHeader: "가속 (일 단위)", general: "일반 가속", training: "훈련 가속",
+        construction: "건설 가속", research: "연구 가속",
+        scheduleHeader: "희망 시간대 (우선순위)",
+        scheduleSub: "매 요일 1순위는 필수 선택입니다. 가능한 시간 범위를 선택하거나 '미참여'를 선택하세요.",
+        syncLabel: "월요일 시간대를 모든 요일에 동일 적용",
+        utcSub: "🕒 모든 시간은 UTC(서버 시간) 기준입니다",
         mon: "월요일 (건설)", tue: "화요일 (연구)", thu: "목요일 (훈련)",
-        submit: "자리 예약하기", sending: "제출 중...", success: "예약이 성공적으로 전송되었습니다!",
-        error: "전송 중 오류가 발생했습니다.", alertAlliance: "연맹을 선택해 주세요.",
-        noParticipate: "-- 미참여 --", p1: "1순위: ", p2: "2순위: ", p3: "3순위: ",
+        from: "시작", to: "종료",
+        p1: "1순위:", p2: "2순위:", p3: "3순위:",
+        selectPlaceholder: "-- 선택 --",
+        noParticipate: "-- 미참여 --",
+        submit: "신청서 제출", sending: "전송 중...", success: "성공적으로 제출되었습니다!",
+        error: "전송 중 오류가 발생했습니다. 다시 시도해 주세요.",
+        alertAlliance: "소속 연맹을 선택해 주세요.",
+        alertRequired: "닉네임, 플레이어 ID를 입력하고 연맹을 선택해 주세요.",
+        alertResources: "불의 수정 및 조각 3개 항목을 모두 선택해 주세요.",
+        alertSpeedups: "4개 가속 항목을 모두 선택해 주세요.",
+        alertScheduleP1: "월, 화, 목요일의 1순위 시간대(시작/종료)를 모두 지정해 주세요.",
+        alertInvalidRange: "종료 시간은 시작 시간보다 늦은 시간이어야 합니다.",
         unlimited: "무제한", dayUnit: "일",
-        closedTitle: "신청 마감", closedDesc: "등록 기간이 종료되었거나 아직 시작되지 않았습니다."
+        loadingDesc: "서버 시간(UTC) 확인 중...",
+        notOpenTitle: "신청 오픈 전입니다",
+        notOpenDesc: "아직 신청 시간이 아닙니다. 예정된 UTC 오픈 시간에 다시 접속해 주세요.",
+        closedTitle: "신청 마감",
+        closedDesc: "신청 기간이 마감되었습니다. 배정 명단은 곧 공지됩니다.",
+        opensAt: "오픈 시간", closesAt: "마감 시간",
+        utcModalTitle: "UTC 서버 시간 안내",
+        utcAlert: "모든 일정은 UTC(게임 서버 시간) 기준입니다. 거주하시는 지역의 시차(한국은 UTC+9)를 반드시 계산 후 신청하세요.",
+        understood: "확인했습니다"
       },
+
       pl: {
-        title: "Tydzień Przygotowań Stanu 2796", playerName: "Nazwa Gracza lub ID", playerPlaceholder: "Twój dokładny nick lub ID",
-        fireCrystal: "Ognisty Kryształ", refined: "Rafinowany Ognisty Kryształ", fragments: "Odłamki Ognistego Kryształu",
-        speedupsHeader: "Przyspieszenia (Dni)", general: "Ogólne", training: "Trening",
+        title: "Tydzień Przygotowań — Stan 2796",
+        userName: "Nick w grze (IGN)", userPlaceholder: "Twój dokładny nick w grze",
+        userId: "ID Gracza (Wklej skopiowane ID)", idPlaceholder: "Wklej swoje ID tutaj",
+        allianceLabel: "Sojusz",
+        fireCrystal: "Ogniste Kryształy (OK)", refined: "Rafinowane OK", fragments: "Odłamki OK",
+        speedupsHeader: "Przyspieszenia (Dni)", general: "Ogólne", training: "Szkolenie wojsk",
         construction: "Budowa", research: "Badania",
-        scheduleHeader: "Zapisy według priorytetów (3 wybory dziennie)", syncLabel: "Zastosuj 3 wybory z poniedziałku do wszystkich dni",
-        mon: "Poniedziałek (Budowa)", tue: "Wtorek (Badania)", thu: "Czwartek (Trening)",
-        submit: "Zarezerwuj miejsce", sending: "Wysyłanie...", success: "Rezerwacja wysłana pomyślnie!",
-        error: "Błąd podczas przesyłania danych.", alertAlliance: "Proszę wybrać sojusz.",
-        noParticipate: "-- Brak udziału --", p1: "1. Wybór: ", p2: "2. Wybór: ", p3: "3. Wybór: ",
-        unlimited: "Bez limitu", dayUnit: "d",
-        closedTitle: "Zapisy Zamknięte", closedDesc: "Okres rejestracji dobiegł końca lub jeszcze się nie rozpoczął."
+        scheduleHeader: "Przedziały Czasowe (Preferencje)",
+        scheduleSub: "1. wybór jest obowiązkowy dla każdego dnia. Wybierz zakres godzin lub wskaż 'Nie biorę udziału'.",
+        syncLabel: "Zastosuj godziny z Poniedziałku do pozostałych dni",
+        utcSub: "🕒 Wszystkie godziny w formacie UTC (Czas Serwera)",
+        mon: "Poniedziałek (Budowa)", tue: "Wtorek (Badania)", thu: "Czwartek (Szkolenie)",
+        from: "Od", to: "Do",
+        p1: "1. Wybór:", p2: "2. Wybór:", p3: "3. Wybór:",
+        selectPlaceholder: "-- Wybierz --",
+        noParticipate: "-- Nie biorę udziału --",
+        submit: "Wyślij zgłoszenie", sending: "Wysyłanie...", success: "Zgłoszenie zostało pomyślnie wysłane!",
+        error: "Błąd podczas przesyłania. Spróbuj ponownie.",
+        alertAlliance: "Wybierz swój sojusz.",
+        alertRequired: "Wprowadź swój nick, ID gracza i wskaż sojusz.",
+        alertResources: "Wybierz wartości dla wszystkich 3 pól kryształów i odłamków.",
+        alertSpeedups: "Uzupełnij wszystkie 4 kategorie przyspieszeń.",
+        alertScheduleP1: "Wymagany jest 1. wybór (Od / Do) dla Poniedziałku, Wtorku i Czwartku.",
+        alertInvalidRange: "Godzina końcowa ('Do') musi być późniejsza niż godzina początkowa ('Od').",
+        unlimited: "Bez limitu", dayUnit: "dni",
+        loadingDesc: "Sprawdzanie czasu serwera (UTC)...",
+        notOpenTitle: "Zapisy Jeszcze Nie Otwarte",
+        notOpenDesc: "Formularz nie jest jeszcze aktywny. Wróć w wyznaczonym oknie czasowym UTC.",
+        closedTitle: "Zapisy Zamknięte",
+        closedDesc: "Formularz rejestracji jest już zamknięty. Rozpiska ministrów pojawi się wkrótce.",
+        opensAt: "Otwarcie", closesAt: "Zamknięcie",
+        utcModalTitle: "STREFA CZASOWA UTC",
+        utcAlert: "Wszystkie godziny bazują na strefie UTC (Czas serwera). Zwróć uwagę na różnicę czasową względem swojego kraju.",
+        understood: "Rozumiem"
       },
+
       id: {
-        title: "Pekan Persiapan State 2796", playerName: "Nama Pemain atau ID", playerPlaceholder: "Nick atau ID dalam game",
-        fireCrystal: "Kristal Api", refined: "Kristal Api Murni", fragments: "Pecahan Kristal Api",
-        speedupsHeader: "Percepatan (Hari)", general: "Umum", training: "Pelatihan",
+        title: "Pekan Persiapan State 2796",
+        userName: "Nama di Game (IGN)", userPlaceholder: "Nama persis di dalam game",
+        userId: "ID Pemain (Salin & Tempel)", idPlaceholder: "Tempelkan Player ID di sini",
+        allianceLabel: "Aliansi",
+        fireCrystal: "Kristal Api (FC)", refined: "FC Murni", fragments: "Pecahan FC",
+        speedupsHeader: "Percepatan / Speedup (Hari)", general: "Umum", training: "Pelatihan Pasukan",
         construction: "Konstruksi", research: "Riset",
-        scheduleHeader: "Pendaftaran Berdasarkan Prioritas (3 pilihan/hari)", syncLabel: "Terapkan 3 pilihan Senin ke semua hari",
+        scheduleHeader: "Jadwal Ketersediaan (Prioritas)",
+        scheduleSub: "Pilihan ke-1 wajib diisi untuk tiap hari. Pilih rentang jam atau tandai 'Tidak ikut'.",
+        syncLabel: "Terapkan jadwal Senin untuk semua hari",
+        utcSub: "🕒 Semua jadwal mengacu pada waktu UTC (Waktu Server)",
         mon: "Senin (Konstruksi)", tue: "Selasa (Riset)", thu: "Kamis (Pelatihan)",
-        submit: "Pesan Jadwal", sending: "Mengirim...", success: "Pendaftaran berhasil dikirim!",
-        error: "Gagal mengirim data.", alertAlliance: "Silakan pilih aliansi.",
-        noParticipate: "-- Tidak berpartisipasi --", p1: "Pilihan 1: ", p2: "Pilihan 2: ", p3: "Pilihan 3: ",
-        unlimited: "Tak terbatas", dayUnit: "h",
-        closedTitle: "Pendaftaran Ditutup", closedDesc: "Batas waktu pendaftaran telah berakhir atau belum dibuka."
+        from: "Dari", to: "Sampai",
+        p1: "Pilihan 1:", p2: "Pilihan 2:", p3: "Pilihan 3:",
+        selectPlaceholder: "-- Pilih --",
+        noParticipate: "-- Tidak ikut serta --",
+        submit: "Kirim Pendaftaran", sending: "Mengirim...", success: "Pendaftaran berhasil dikirim!",
+        error: "Gagal mengirim data. Silakan coba lagi.",
+        alertAlliance: "Silakan pilih aliansi Anda.",
+        alertRequired: "Silakan masukkan IGN, Player ID, dan pilih aliansi.",
+        alertResources: "Lengkapi ketiga opsi Kristal Api dan Pecahan.",
+        alertSpeedups: "Lengkapi semua dari 4 kategori percepatan (speedup).",
+        alertScheduleP1: "Pilihan ke-1 (Dari / Sampai) wajib diisi untuk hari Senin, Selasa, dan Kamis.",
+        alertInvalidRange: "Waktu selesai ('Sampai') harus lebih akhir dari waktu mulai ('Dari').",
+        unlimited: "Tanpa batas", dayUnit: "hari",
+        loadingDesc: "Memeriksa jadwal server (UTC)...",
+        notOpenTitle: "Pendaftaran Belum Dibuka",
+        notOpenDesc: "Formulir belum dibuka. Silakan kembali sesuai jadwal UTC yang ditentukan.",
+        closedTitle: "Pendaftaran Ditutup",
+        closedDesc: "Pendaftaran telah berakhir. Jadwal tugas menteri akan segera diumumkan.",
+        opensAt: "Dibuka", closesAt: "Ditutup",
+        utcModalTitle: "PENGINGAT ZONA WAKTU (UTC)",
+        utcAlert: "Semua jadwal memakai acuan UTC (Waktu Server). Harap perhatikan selisih jam lokal Anda sebelum memilih.",
+        understood: "Mengerti"
       },
-      el: {
-        title: "Εβδομάδα Προετοιμασίας State 2796", playerName: "Όνομα Παίκτη ή ID", playerPlaceholder: "Το ακριβές Nick ή ID σου",
-        fireCrystal: "Κρύσταλλοι Φωτιάς", refined: "Εξευγενισμένοι Κρύσταλλοι", fragments: "Θραύσματα Κρυστάλλων",
-        speedupsHeader: "Επιταχύνσεις (Ημέρες)", general: "Γενικές", training: "Εκπαίδευση",
-        construction: "Κατασκευή", research: "Έρευνα",
-        scheduleHeader: "Εγγραφή βάσει προτεραιότητας (3 επιλογές/ημέρα)", syncLabel: "Εφαρμογή των 3 επιλογών Δευτέρας σε όλες τις ημέρες",
-        mon: "Δευτέρα (Κατασκευή)", tue: "Τρίτη (Έρευνα)", thu: "Πέμπτη (Εκπαίδευση)",
-        submit: "Κράτηση θέσης", sending: "Αποστολή...", success: "Η κράτηση στάλθηκε με επιτυχία!",
-        error: "Σφάλμα κατά την αποστολή.", alertAlliance: "Παρακαλώ επιλέξτε συμμαχία.",
-        noParticipate: "-- Χωρίς συμμετοχή --", p1: "1η Επιλογή: ", p2: "2η Επιλογή: ", p3: "3η Επιλογή: ",
-        unlimited: "Άπειρο", dayUnit: "ημ",
-        closedTitle: "Οι εγγραφές έκλεισαν", closedDesc: "Η προθεσμία εγγραφής έχει λήξει ή δεν έχει ανοίξει ακόμα."
+
+      zh: {
+        title: "2796区 最强王国准备周",
+        userName: "游戏昵称 (IGN)", userPlaceholder: "请填写游戏内准确昵称",
+        userId: "玩家ID (复制并粘贴)", idPlaceholder: "在此粘贴您的游戏ID",
+        allianceLabel: "所属联盟",
+        fireCrystal: "火晶 (FC)", refined: "精炼火晶 (RFC)", fragments: "火晶微粒",
+        speedupsHeader: "加速储备 (天)", general: "通用加速", training: "训练加速",
+        construction: "建造加速", research: "研究加速",
+        scheduleHeader: "空闲时间段预约 (优先级)",
+        scheduleSub: "每天的第一优先级为必填项。请选择可参与的时间区间，若无法参与请勾选'不参与'。",
+        syncLabel: "将周一的选择同步应用至所有日期",
+        utcSub: "🕒 全程采用 UTC 国际标准时间 (游戏服务器时间)",
+        mon: "周一 (建筑升级)", tue: "周二 (科技研究)", thu: "周四 (士兵训练)",
+        from: "起始", to: "截止",
+        p1: "第1优先级:", p2: "第2优先级:", p3: "第3优先级:",
+        selectPlaceholder: "-- 请选择 --",
+        noParticipate: "-- 不参与此日活动 --",
+        submit: "确认并提交预约", sending: "正在提交...", success: "预约登记成功！",
+        error: "提交失败，请检查网络后重试。",
+        alertAlliance: "请选择您所在的联盟。",
+        alertRequired: "请完整填写游戏昵称、玩家ID并选择联盟。",
+        alertResources: "请选择火晶与微粒的全部3项储备区间。",
+        alertSpeedups: "请选择全部4类加速道具的储备区间。",
+        alertScheduleP1: "周一、周二及周四的第一优先级时间区间（起始与截止）为必选项。",
+        alertInvalidRange: "截止时间必须晚于起始时间。",
+        unlimited: "无上限", dayUnit: "天",
+        loadingDesc: "正在检查服务器时间 (UTC)...",
+        notOpenTitle: "报名尚未开始",
+        notOpenDesc: "预约通道尚未开启，请在规定的 UTC 开放时间内访问。",
+        closedTitle: "报名通道已关闭",
+        closedDesc: "报名已截止。官员及加成排班表将在统计完成后公布。",
+        opensAt: "开放时间", closesAt: "截止时间",
+        utcModalTitle: "时区确认提示 (UTC)",
+        utcAlert: "所有选项均为 UTC 服务器时间（比北京时间晚8小时）。请在选择前务必核对本地时间差。",
+        understood: "已知晓"
+      },
+
+      tr: {
+        title: "2796 Eyaleti Hazırlık Haftası",
+        userName: "Oyun İçi İsim (IGN)", userPlaceholder: "Oyundaki tam adınız",
+        userId: "Oyuncu ID (Kopyala & Yapıştır)", idPlaceholder: "Oyuncu ID'nizi buraya yapıştırın",
+        allianceLabel: "İttifak",
+        fireCrystal: "Ateş Kristali (FC)", refined: "Arıtılmış FC", fragments: "FC Parçacığı",
+        speedupsHeader: "Hızlandırmalar (Gün)", general: "Genel Hızlandırma", training: "Asker Eğitimi",
+        construction: "İnşaat", research: "Araştırma",
+        scheduleHeader: "Müsaitlik Zaman Dilimleri (Tercihler)",
+        scheduleSub: "1. Tercih her gün için zorunludur. Uygun aralıkları seçin veya 'Katılmıyorum' olarak işaretleyin.",
+        syncLabel: "Pazartesi saatlerini tüm günlere uygula",
+        utcSub: "🕒 Tüm saatler UTC (Sunucu Saati) formatındadır",
+        mon: "Pazartesi (İnşaat)", tue: "Salı (Araştırma)", thu: "Perşembe (Eğitim)",
+        from: "Başlangıç", to: "Bitiş",
+        p1: "1. Tercih:", p2: "2. Tercih:", p3: "3. Tercih:",
+        selectPlaceholder: "-- Seçiniz --",
+        noParticipate: "-- Katılmıyorum --",
+        submit: "Kaydı Tamamla", sending: "Gönderiliyor...", success: "Kaydınız başarıyla alındı!",
+        error: "Gönderilirken hata oluştu. Lütfen tekrar deneyin.",
+        alertAlliance: "Lütfen bir ittifak seçin.",
+        alertRequired: "Lütfen oyun içi adınızı, ID'nizi girin ve ittifakınızı seçin.",
+        alertResources: "Lütfen 3 kristal ve parçacık alanının tamamını doldurun.",
+        alertSpeedups: "Lütfen 4 hızlandırma türünü de seçin.",
+        alertScheduleP1: "Pazartesi, Salı ve Perşembe için 1. Tercih (Başlangıç / Bitiş) alanlarını doldurmalısınız.",
+        alertInvalidRange: "Bitiş saati başlangıç saatinden sonra olmalıdır.",
+        unlimited: "Limitsiz", dayUnit: "gün",
+        loadingDesc: "Sunucu saati (UTC) kontrol ediliyor...",
+        notOpenTitle: "Kayıtlar Henüz Açılmadı",
+        notOpenDesc: "Form henüz açılmadı. Lütfen planlanan UTC saatinde tekrar kontrol edin.",
+        closedTitle: "Kayıtlar Kapandı",
+        closedDesc: "Başvuru süresi doldu. Bakanlık görev listesi yakında paylaşılacaktır.",
+        opensAt: "Açılış", closesAt: "Kapanış",
+        utcModalTitle: "SAAT DİLİMİ UYARISI (UTC)",
+        utcAlert: "Seçilen saatler oyun sunucusu saati olan UTC'ye göredir. Lütfen yerel saatinizle farkı kontrol ederek seçim yapın.",
+        understood: "Anlaşıldı"
+      },
+
+      ar: {
+        title: "أسبوع الاستعداد — الولاية 2796",
+        userName: "اسم اللاعب باللعبة (IGN)", userPlaceholder: "اسمك الدقيق داخل اللعبة",
+        userId: "معرف اللاعب ID (نسخ ولصق)", idPlaceholder: "الصق معرفك هنا",
+        allianceLabel: "التحالف",
+        fireCrystal: "بلورات النار (FC)", refined: "بلور ناري منقى", fragments: "شظايا بلور النار",
+        speedupsHeader: "تسريعات الوقت (بالأيام)", general: "تسريع عام", training: "تدريب القوات",
+        construction: "البناء", research: "البحث العلمي",
+        scheduleHeader: "فترات التوفر (الأولويات)",
+        scheduleSub: "الخيار الأول إلزامي لكل يوم. حدد مجالك الزمني أو اختر 'لا أشارك'.",
+        syncLabel: "تطبيق فترات الإثنين على باقي الأيام",
+        utcSub: "🕒 جميع المواعيد بتوقيت UTC (توقيت السيرفر الرسمي)",
+        mon: "الإثنين (بناء)", tue: "الثلاثاء (أبحاث)", thu: "الخميس (تدريب)",
+        from: "من", to: "إلى",
+        p1: "الخيار الأول:", p2: "الخيار الثاني:", p3: "الخيار الثالث:",
+        selectPlaceholder: "-- اختر --",
+        noParticipate: "-- لن أشارك في هذا اليوم --",
+        submit: "تأكيد وإرسال التسجيل", sending: "جارٍ الإرسال...", success: "تم تسجيل موعدك بنجاح!",
+        error: "تعذر إرسال البيانات. يرجى المحاولة مرة أخرى.",
+        alertAlliance: "يرجى تحديد تحالفك.",
+        alertRequired: "يرجى ملء الاسم، المعرف واختيار التحالف.",
+        alertResources: "يرجى تعبئة حقول بلورات النار والشظايا كاملة.",
+        alertSpeedups: "يرجى تحديد كميات التسريعات الأربعة كاملة.",
+        alertScheduleP1: "الخيار الأول (من / إلى) إلزامي لأيام الإثنين والثلاثاء والخميس.",
+        alertInvalidRange: "يجب أن يكون وقت الانتهاء ('إلى') بعد وقت البدء ('من').",
+        unlimited: "غير محدود", dayUnit: "أيام",
+        loadingDesc: "جارٍ التحقق من توقيت السيرفر (UTC)...",
+        notOpenTitle: "التسجيل لم يبدأ بعد",
+        notOpenDesc: "النموذج غير متاح حالياً. يرجى العودة خلال فترة التوقيت المحددة (UTC).",
+        closedTitle: "باب التسجيل مغلق",
+        closedDesc: "انتهت فترة التقديم. سيتم نشر جدول المواعيد الرسمي قريباً.",
+        opensAt: "يفتح في", closesAt: "أُغلق في",
+        utcModalTitle: "تنبيه مهم بخصوص التوقيت (UTC)",
+        utcAlert: "يرجى الانتباه: كافة الفترات محددة وفق توقيت السيرفر UTC. احرص على حساب الفارق الزمني مع بلدك قبل الاختيار.",
+        understood: "فهمت ذلك"
       }
     };
 
     let currentLang = "es";
+    let utcNoticeShownOnSelect = false;
+    let lastServerStatus = null;
 
     function safeSetText(id, text) {
       const el = document.getElementById(id);
@@ -406,6 +844,16 @@
     function safeSetPlaceholder(id, text) {
       const el = document.getElementById(id);
       if (el) el.placeholder = text;
+    }
+
+    function showBannerMessage(text, isError = false) {
+      const el = document.getElementById("inlineAlert");
+      if (!el) return;
+      el.textContent = text;
+      el.className = isError
+        ? "p-3 rounded-xl text-center text-xs font-semibold block bg-[#2A1018] text-[#FF5C77] border border-[#7A1D2D]"
+        : "p-3 rounded-xl text-center text-xs font-semibold block bg-[#0E291D] text-[#34D399] border border-[#10B981]";
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     function populateResourceSelectors() {
@@ -438,46 +886,128 @@
         { v: "+100", l: `+100 ${t.dayUnit}` }, { v: "Ilimitado", l: t.unlimited }
       ];
 
-      fillSelect("cristalFuego", cfRanges);
-      fillSelect("refinado", refRanges);
-      fillSelect("fragmentos", fragRanges);
-      fillSelect("acelGeneral", spdRanges);
-      fillSelect("acelEntrenamiento", spdRanges);
-      fillSelect("acelConstruccion", spdRanges);
-      fillSelect("acelInvestigacion", spdRanges);
+      fillRequiredSelect("cristalFuego", cfRanges, t.selectPlaceholder);
+      fillRequiredSelect("refinado", refRanges, t.selectPlaceholder);
+      fillRequiredSelect("fragmentos", fragRanges, t.selectPlaceholder);
+      fillRequiredSelect("acelGeneral", spdRanges, t.selectPlaceholder);
+      fillRequiredSelect("acelEntrenamiento", spdRanges, t.selectPlaceholder);
+      fillRequiredSelect("acelConstruccion", spdRanges, t.selectPlaceholder);
+      fillRequiredSelect("acelInvestigacion", spdRanges, t.selectPlaceholder);
     }
 
-    function fillSelect(id, list) {
+    function fillRequiredSelect(id, list, placeholderText) {
       const el = document.getElementById(id);
       if (!el) return;
       const prev = el.value;
-      el.innerHTML = list.map(item => `<option value="${item.v}">${item.l}</option>`).join('');
+      let html = `<option value="" ${!prev ? "selected" : ""}>${placeholderText}</option>`;
+      html += list.map(item => `<option value="${item.v}">${item.l}</option>`).join('');
+      el.innerHTML = html;
       if (prev) el.value = prev;
     }
 
-    function populateTimeSelectors() {
-      const t = translations[currentLang] || translations.es;
-      const selectors = [
-        { id: "lunesP1", label: t.p1 }, { id: "lunesP2", label: t.p2 }, { id: "lunesP3", label: t.p3 },
-        { id: "martesP1", label: t.p1 }, { id: "martesP2", label: t.p2 }, { id: "martesP3", label: t.p3 },
-        { id: "juevesP1", label: t.p1 }, { id: "juevesP2", label: t.p2 }, { id: "juevesP3", label: t.p3 }
-      ];
+    const intervalFields = [
+      "lunesP1_desde", "lunesP1_hasta", "lunesP2_desde", "lunesP2_hasta", "lunesP3_desde", "lunesP3_hasta",
+      "martesP1_desde", "martesP1_hasta", "martesP2_desde", "martesP2_hasta", "martesP3_desde", "martesP3_hasta",
+      "juevesP1_desde", "juevesP1_hasta", "juevesP2_desde", "juevesP2_hasta", "juevesP3_desde", "juevesP3_hasta"
+    ];
 
-      selectors.forEach(({ id, label }) => {
+    const mandatoryP1Fields = [
+      "lunesP1_desde", "lunesP1_hasta",
+      "martesP1_desde", "martesP1_hasta",
+      "juevesP1_desde", "juevesP1_hasta"
+    ];
+
+    function populateTimeIntervalSelectors() {
+      const t = translations[currentLang] || translations.es;
+
+      let fromHours = "";
+      for (let h = 0; h < 24; h++) {
+        for (let m = 0; m < 60; m += 30) {
+          const timeStr = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+          fromHours += `<option value="${timeStr}">${timeStr}</option>`;
+        }
+      }
+
+      let toHours = "";
+      for (let h = 0; h < 24; h++) {
+        for (let m = 0; m < 60; m += 30) {
+          if (h === 0 && m === 0) continue;
+          const timeStr = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+          toHours += `<option value="${timeStr}">${timeStr}</option>`;
+        }
+      }
+      toHours += `<option value="24:00">24:00</option>`;
+
+      intervalFields.forEach(id => {
         const el = document.getElementById(id);
         if (!el) return;
-        const currentVal = el.value || "No participa";
-        let html = `<option value="No participa">${t.noParticipate}</option>`;
+        const currentVal = el.value;
+        const isP1 = mandatoryP1Fields.includes(id);
+        const isFrom = id.endsWith("_desde");
 
-        for (let h = 0; h < 24; h++) {
-          for (let m = 0; m < 60; m += 30) {
-            const timeStr = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
-            html += `<option value="${timeStr}">${label}${timeStr}</option>`;
+        let html = "";
+        if (isP1) {
+          html += `<option value="" ${!currentVal ? "selected" : ""}>${t.selectPlaceholder}</option>`;
+          html += `<option value="No participa">${t.noParticipate}</option>`;
+        } else {
+          html += `<option value="No participa" ${(!currentVal || currentVal === 'No participa') ? "selected" : ""}>${t.noParticipate}</option>`;
+        }
+
+        html += isFrom ? fromHours : toHours;
+        el.innerHTML = html;
+        if (currentVal !== undefined && currentVal !== "") {
+          el.value = currentVal;
+        }
+      });
+    }
+
+    function showUtcModal(force = false) {
+      if (!force && utcNoticeShownOnSelect) return;
+      if (!force) utcNoticeShownOnSelect = true;
+
+      const t = translations[currentLang] || translations.es;
+      safeSetText("utcModalTitle", t.utcModalTitle);
+      safeSetText("utcModalBody", t.utcAlert);
+      safeSetText("utcCloseBtn", t.understood || "Entendido");
+
+      const modal = document.getElementById("utcModal");
+      if (modal) modal.classList.remove("hidden");
+    }
+
+    document.getElementById("utcCloseBtn").addEventListener("click", () => {
+      document.getElementById("utcModal").classList.add("hidden");
+    });
+
+    function renderScheduleNotice(data) {
+      const t = translations[currentLang] || translations.es;
+      const loadingEl = document.getElementById("loadingNotice");
+      const formEl = document.getElementById("formContainer");
+      const closedEl = document.getElementById("closedNotice");
+      const windowEl = document.getElementById("t-scheduleWindow");
+
+      if (loadingEl) loadingEl.classList.add("hidden");
+
+      if (data && (data.estado === "CERRADO" || data.estado === "NO_ABIERTO")) {
+        formEl.classList.add("hidden");
+        closedEl.classList.remove("hidden");
+
+        if (data.estado === "NO_ABIERTO") {
+          safeSetText("t-closedTitle", t.notOpenTitle);
+          safeSetText("t-closedDesc", t.notOpenDesc);
+          if (windowEl) {
+            windowEl.textContent = data.apertura ? `🕒 ${t.opensAt}: ${data.apertura} UTC` : "";
+          }
+        } else {
+          safeSetText("t-closedTitle", t.closedTitle);
+          safeSetText("t-closedDesc", t.closedDesc);
+          if (windowEl) {
+            windowEl.textContent = data.cierre ? `🕒 ${t.closesAt}: ${data.cierre} UTC` : "";
           }
         }
-        el.innerHTML = html;
-        el.value = currentVal;
-      });
+      } else {
+        formEl.classList.remove("hidden");
+        closedEl.classList.add("hidden");
+      }
     }
 
     function checkConvocatoria() {
@@ -486,13 +1016,8 @@
       const cbName = "onCheckStatus_" + Math.floor(Math.random() * 1000000);
 
       window[cbName] = function(data) {
-        if (data && data.estado === "CERRADO") {
-          document.getElementById("formContainer").classList.add("hidden");
-          document.getElementById("closedNotice").classList.remove("hidden");
-        } else {
-          document.getElementById("formContainer").classList.remove("hidden");
-          document.getElementById("closedNotice").classList.add("hidden");
-        }
+        lastServerStatus = data;
+        renderScheduleNotice(data);
         delete window[cbName];
         if (script.parentNode) script.parentNode.removeChild(script);
       };
@@ -501,14 +1026,17 @@
       document.body.appendChild(script);
     }
 
-    function setLanguage(lang) {
+    function setLanguage(lang, triggeredByUser = false) {
       if (!translations[lang]) return;
       currentLang = lang;
       const t = translations[lang];
 
       safeSetText("t-title", t.title);
-      safeSetText("t-playerName", t.playerName);
-      safeSetPlaceholder("jugador", t.playerPlaceholder);
+      safeSetText("t-userName", t.userName);
+      safeSetPlaceholder("jugador", t.userPlaceholder);
+      safeSetText("t-userId", t.userId);
+      safeSetPlaceholder("jugadorId", t.idPlaceholder);
+      safeSetText("t-alliance", t.allianceLabel);
       safeSetText("t-fireCrystal", t.fireCrystal);
       safeSetText("t-refined", t.refined);
       safeSetText("t-fragments", t.fragments);
@@ -518,40 +1046,72 @@
       safeSetText("t-construction", t.construction);
       safeSetText("t-research", t.research);
       safeSetText("t-scheduleHeader", t.scheduleHeader);
+      safeSetText("t-scheduleSub", t.scheduleSub);
       safeSetText("t-syncLabel", t.syncLabel);
+      safeSetText("t-utcSubNotice", t.utcSub);
       safeSetText("t-mon", t.mon);
       safeSetText("t-tue", t.tue);
       safeSetText("t-thu", t.thu);
       safeSetText("submitBtn", t.submit);
-      safeSetText("t-closedTitle", t.closedTitle);
-      safeSetText("t-closedDesc", t.closedDesc);
+      safeSetText("t-loadingDesc", t.loadingDesc);
+      safeSetText("utcModalTitle", t.utcModalTitle);
+      safeSetText("utcModalBody", t.utcAlert);
+      safeSetText("utcCloseBtn", t.understood || "Entendido");
 
-      ["es", "en", "fr", "de", "ru", "ko", "pl", "id", "el"].forEach(l => {
+      if (lastServerStatus) {
+        renderScheduleNotice(lastServerStatus);
+      } else {
+        safeSetText("t-closedTitle", t.closedTitle);
+        safeSetText("t-closedDesc", t.closedDesc);
+      }
+
+      document.querySelectorAll(".lbl-from").forEach(el => el.textContent = t.from);
+      document.querySelectorAll(".lbl-to").forEach(el => el.textContent = t.to);
+      document.querySelectorAll(".priority-title-1 span:first-child").forEach(el => el.textContent = t.p1);
+      document.querySelectorAll(".priority-title-2").forEach(el => el.textContent = t.p2);
+      document.querySelectorAll(".priority-title-3").forEach(el => el.textContent = t.p3);
+
+      const languages = ["es", "en", "fr", "de", "ru", "ko", "pl", "id", "zh", "tr", "ar"];
+      languages.forEach(l => {
         const btn = document.getElementById(`lang-${l}`);
         if (btn) {
           btn.className = (l === lang) 
-            ? "px-2 py-1 text-xs rounded font-bold transition bg-[#2DD4BF] text-[#0B1313]" 
-            : "px-2 py-1 text-xs rounded font-bold transition text-[#7E9F9D] hover:text-white";
+            ? "px-2 py-1 text-xs rounded font-bold transition bg-[#10B981] text-[#04130B]" 
+            : "px-2 py-1 text-xs rounded font-bold transition text-[#8AB8A0] hover:text-white hover:bg-[#12291E]";
         }
       });
 
       populateResourceSelectors();
-      populateTimeSelectors();
+      populateTimeIntervalSelectors();
+
+      if (triggeredByUser) {
+        showUtcModal(true);
+      }
     }
 
     function syncAllDays() {
-      const p1 = document.getElementById("lunesP1").value;
-      const p2 = document.getElementById("lunesP2").value;
-      const p3 = document.getElementById("lunesP3").value;
+      const p1_d = document.getElementById("lunesP1_desde").value;
+      const p1_h = document.getElementById("lunesP1_hasta").value;
+      const p2_d = document.getElementById("lunesP2_desde").value;
+      const p2_h = document.getElementById("lunesP2_hasta").value;
+      const p3_d = document.getElementById("lunesP3_desde").value;
+      const p3_h = document.getElementById("lunesP3_hasta").value;
 
       ["martes", "jueves"].forEach(dia => {
-        document.getElementById(`${dia}P1`).value = p1;
-        document.getElementById(`${dia}P2`).value = p2;
-        document.getElementById(`${dia}P3`).value = p3;
+        document.getElementById(`${dia}P1_desde`).value = p1_d;
+        document.getElementById(`${dia}P1_hasta`).value = p1_h;
+        document.getElementById(`${dia}P2_desde`).value = p2_d;
+        document.getElementById(`${dia}P2_hasta`).value = p2_h;
+        document.getElementById(`${dia}P3_desde`).value = p3_d;
+        document.getElementById(`${dia}P3_hasta`).value = p3_h;
       });
     }
 
-    ["lunesP1", "lunesP2", "lunesP3"].forEach(id => {
+    [
+      "lunesP1_desde", "lunesP1_hasta",
+      "lunesP2_desde", "lunesP2_hasta",
+      "lunesP3_desde", "lunesP3_hasta"
+    ].forEach(id => {
       document.getElementById(id).addEventListener("change", () => {
         if (document.getElementById("syncSchedule").checked) syncAllDays();
       });
@@ -559,6 +1119,14 @@
 
     document.getElementById("syncSchedule").addEventListener("change", (e) => {
       if (e.target.checked) syncAllDays();
+    });
+
+    intervalFields.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener("focus", () => showUtcModal(false));
+        el.addEventListener("mousedown", () => showUtcModal(false));
+      }
     });
 
     let selectedAlliance = "";
@@ -570,40 +1138,137 @@
       });
     });
 
+    function timeToMinutes(str) {
+      if (!str || str === "No participa") return null;
+      const [h, m] = str.split(":").map(Number);
+      return h * 60 + m;
+    }
+
     document.getElementById("savingsForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const t = translations[currentLang] || translations.es;
 
-      if (!selectedAlliance) {
-        alert(t.alertAlliance);
+      const jugador = document.getElementById("jugador").value.trim();
+      const jugadorId = document.getElementById("jugadorId").value.trim();
+
+      // 1. Nick e ID obligatorios
+      if (!jugador || !jugadorId) {
+        showBannerMessage(t.alertRequired, true);
         return;
       }
 
-      const btn = document.getElementById("submitBtn");
-      const msg = document.getElementById("msgStatus");
+      // 2. Alianza obligatoria
+      if (!selectedAlliance) {
+        showBannerMessage(t.alertAlliance, true);
+        return;
+      }
 
+      // 3. Recursos obligatorios (no vacíos)
+      const cf = document.getElementById("cristalFuego").value;
+      const ref = document.getElementById("refinado").value;
+      const frag = document.getElementById("fragmentos").value;
+      if (!cf || !ref || !frag) {
+        showBannerMessage(t.alertResources, true);
+        return;
+      }
+
+      // 4. Aceleradores obligatorios (no vacíos)
+      const spdGen = document.getElementById("acelGeneral").value;
+      const spdEnt = document.getElementById("acelEntrenamiento").value;
+      const spdCon = document.getElementById("acelConstruccion").value;
+      const spdInv = document.getElementById("acelInvestigacion").value;
+      if (!spdGen || !spdEnt || !spdCon || !spdInv) {
+        showBannerMessage(t.alertSpeedups, true);
+        return;
+      }
+
+      // 5. Primera franja horaria obligatoria para cada día (P1 de Lunes, Martes y Jueves)
+      const p1Pairs = [
+        { d: "lunesP1_desde", h: "lunesP1_hasta" },
+        { d: "martesP1_desde", h: "martesP1_hasta" },
+        { d: "juevesP1_desde", h: "juevesP1_hasta" }
+      ];
+
+      for (const pair of p1Pairs) {
+        const valD = document.getElementById(pair.d).value;
+        const valH = document.getElementById(pair.h).value;
+        if (!valD || !valH) {
+          showBannerMessage(t.alertScheduleP1, true);
+          return;
+        }
+      }
+
+      // 6. Validación de rangos para todas las franjas activas (Hasta > Desde)
+      const intervalPairs = [
+        { d: "lunesP1_desde", h: "lunesP1_hasta" },
+        { d: "lunesP2_desde", h: "lunesP2_hasta" },
+        { d: "lunesP3_desde", h: "lunesP3_hasta" },
+        { d: "martesP1_desde", h: "martesP1_hasta" },
+        { d: "martesP2_desde", h: "martesP2_hasta" },
+        { d: "martesP3_desde", h: "martesP3_hasta" },
+        { d: "juevesP1_desde", h: "juevesP1_hasta" },
+        { d: "juevesP2_desde", h: "juevesP2_hasta" },
+        { d: "juevesP3_desde", h: "juevesP3_hasta" }
+      ];
+
+      for (const pair of intervalPairs) {
+        const valD = document.getElementById(pair.d).value;
+        const valH = document.getElementById(pair.h).value;
+
+        if ((valD === "No participa" && valH !== "No participa") || (valD !== "No participa" && valH === "No participa")) {
+          showBannerMessage(t.alertInvalidRange, true);
+          return;
+        }
+
+        if (valD && valH && valD !== "No participa" && valH !== "No participa") {
+          const minD = timeToMinutes(valD);
+          const minH = timeToMinutes(valH);
+          if (minH <= minD) {
+            showBannerMessage(t.alertInvalidRange, true);
+            return;
+          }
+        }
+      }
+
+      const btn = document.getElementById("submitBtn");
       btn.disabled = true;
       btn.textContent = t.sending;
 
       const payload = {
-        jugador: document.getElementById("jugador").value,
+        jugador: jugador,
+        jugadorId: jugadorId,
         alianza: selectedAlliance,
-        cristalFuego: document.getElementById("cristalFuego").value,
-        refinado: document.getElementById("refinado").value,
-        fragmentos: document.getElementById("fragmentos").value,
-        acelGeneral: document.getElementById("acelGeneral").value,
-        acelEntrenamiento: document.getElementById("acelEntrenamiento").value,
-        acelConstruccion: document.getElementById("acelConstruccion").value,
-        acelInvestigacion: document.getElementById("acelInvestigacion").value,
-        horaLunesP1: document.getElementById("lunesP1").value,
-        horaLunesP2: document.getElementById("lunesP2").value,
-        horaLunesP3: document.getElementById("lunesP3").value,
-        horaMartesP1: document.getElementById("martesP1").value,
-        horaMartesP2: document.getElementById("martesP2").value,
-        horaMartesP3: document.getElementById("martesP3").value,
-        horaJuevesP1: document.getElementById("juevesP1").value,
-        horaJuevesP2: document.getElementById("juevesP2").value,
-        horaJuevesP3: document.getElementById("juevesP3").value
+        cristalFuego: cf,
+        refinado: ref,
+        fragmentos: frag,
+        acelGeneral: spdGen,
+        acelEntrenamiento: spdEnt,
+        acelConstruccion: spdCon,
+        acelInvestigacion: spdInv,
+
+        // Franjas Lunes
+        horaLunesP1_desde: document.getElementById("lunesP1_desde").value,
+        horaLunesP1_hasta: document.getElementById("lunesP1_hasta").value,
+        horaLunesP2_desde: document.getElementById("lunesP2_desde").value,
+        horaLunesP2_hasta: document.getElementById("lunesP2_hasta").value,
+        horaLunesP3_desde: document.getElementById("lunesP3_desde").value,
+        horaLunesP3_hasta: document.getElementById("lunesP3_hasta").value,
+
+        // Franjas Martes
+        horaMartesP1_desde: document.getElementById("martesP1_desde").value,
+        horaMartesP1_hasta: document.getElementById("martesP1_hasta").value,
+        horaMartesP2_desde: document.getElementById("martesP2_desde").value,
+        horaMartesP2_hasta: document.getElementById("martesP2_hasta").value,
+        horaMartesP3_desde: document.getElementById("martesP3_desde").value,
+        horaMartesP3_hasta: document.getElementById("martesP3_hasta").value,
+
+        // Franjas Jueves
+        horaJuevesP1_desde: document.getElementById("juevesP1_desde").value,
+        horaJuevesP1_hasta: document.getElementById("juevesP1_hasta").value,
+        horaJuevesP2_desde: document.getElementById("juevesP2_desde").value,
+        horaJuevesP2_hasta: document.getElementById("juevesP2_hasta").value,
+        horaJuevesP3_desde: document.getElementById("juevesP3_desde").value,
+        horaJuevesP3_hasta: document.getElementById("juevesP3_hasta").value
       };
 
       try {
@@ -614,23 +1279,24 @@
           body: JSON.stringify(payload)
         });
 
-        msg.textContent = t.success;
-        msg.className = "text-center text-xs font-semibold text-[#2DD4BF] block";
+        showBannerMessage(t.success, false);
         document.getElementById("savingsForm").reset();
         document.querySelectorAll(".badge-selected").forEach(b => b.classList.remove("badge-selected"));
         selectedAlliance = "";
+        utcNoticeShownOnSelect = false;
+        populateResourceSelectors();
+        populateTimeIntervalSelectors();
       } catch (err) {
-        msg.textContent = t.error;
-        msg.className = "text-center text-xs font-semibold text-rose-400 block";
+        showBannerMessage(t.error, true);
       } finally {
         btn.disabled = false;
         btn.textContent = t.submit;
       }
     });
 
-    populateResourceSelectors();
-    populateTimeSelectors();
+    setLanguage('es', false);
     checkConvocatoria();
+    setInterval(checkConvocatoria, 30000);
   </script>
 </body>
 </html>
