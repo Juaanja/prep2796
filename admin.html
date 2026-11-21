@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#060D09">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SvS Admin">
+  <link rel="icon" type="image/png" href="./img/refinado.png">
+  <link rel="apple-touch-icon" href="./img/refinado.png">
+  <title>SvS · Admin App</title>
+  <style>
+    :root {
+      --bg: #060D09;
+      --card: #0C1A13;
+      --card2: #08120D;
+      --border: #1B3B2B;
+      --text: #F0FDF4;
+      --muted: #9CC7B1;
+      --emerald: #10B981;
+      --emerald-light: #34D399;
+      --red: #E31A21;
+      --blue: #0284C7;
+      --amber: #F59E0B;
+    }
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    html, body {
+      min-height: 100dvh;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      overscroll-behavior-y: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    body {
+      padding: calc(14px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) calc(34px + env(safe-area-inset-bottom)) calc(14px + env(safe-area-inset-left));
+    }
+    .app {
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: rgba(12, 26, 19, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 10px 12px;
+      margin-bottom: 14px;
+      position: sticky;
+      top: calc(8px + env(safe-area-inset-top));
+      z-index: 20;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
+    }
+    .brand-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 1px solid rgba(16, 185, 129, 0.45);
+      flex-shrink: 0;
+    }
+    .app-title {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: var(--emerald-light);
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .lang-switch {
+      display: inline-flex;
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 2px;
+    }
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 8px;
+      border-radius: 999px;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    .lang-btn.active {
+      background: var(--emerald);
+      color: #04130B;
+    }
+    .clock {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      background: var(--card2);
+      padding: 5px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+    }
+    .login-card {
+      margin-top: 24px;
+      text-align: center;
+      padding: 26px 20px;
+    }
+    .login-logo {
+      width: 68px;
+      height: 68px;
+      border-radius: 18px;
+      object-fit: cover;
+      border: 2px solid rgba(16, 185, 129, 0.5);
+      margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+    .login-title {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--text);
+      margin: 0 0 6px;
+    }
+    .login-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 0 0 18px;
+      line-height: 1.45;
+    }
+    .status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .badge {
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .badge-open {
+      background: rgba(16, 185, 129, 0.16);
+      color: #34D399;
+      border: 1px solid rgba(16, 185, 129, 0.45);
+    }
+    .badge-closed {
+      background: rgba(227, 26, 33, 0.18);
+      color: #FF6B72;
+      border: 1px solid rgba(227, 26, 33, 0.45);
+    }
+    .badge-pending {
+      background: rgba(245, 158, 11, 0.16);
+      color: #FBBF24;
+      border: 1px solid rgba(245, 158, 11, 0.45);
+    }
+    .inscritos-box {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 7px 11px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .inscritos-box b {
+      color: var(--text);
+      font-size: 14px;
+    }
+    .meta-grid {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+    .meta-grid b {
+      color: var(--text);
+    }
+    .section-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--muted);
+      margin: 0 0 10px;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 15px;
+      margin: 8px 0;
+      border-radius: 14px;
+      border: none;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+      transition: transform 0.12s ease, opacity 0.15s ease;
+    }
+    .btn:active {
+      transform: scale(0.975);
+      opacity: 0.9;
+    }
+    .btn:disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    .btn-blue { background: var(--blue); color: #fff; }
+    .btn-green { background: var(--emerald); color: #04130B; }
+    .btn-red { background: var(--red); color: #fff; }
+    .btn-dark { background: #12291E; color: var(--emerald-light); border: 1px solid rgba(16, 185, 129, 0.45); }
+    .btn-sheet { background: var(--card2); color: var(--text); border: 1px solid var(--border); font-size: 14px; min-height: 44px; }
+    .btn-danger { background: rgba(122, 29, 45, 0.25); color: #FF6B72; border: 1px solid rgba(255, 92, 119, 0.45); }
+    .btn-logout { background: transparent; color: var(--muted); border: 1px solid var(--border); font-size: 13.5px; min-height: 42px; }
+    label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--muted);
+      margin: 10px 0 5px;
+      text-align: left;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      min-height: 48px;
+      padding: 11px 14px;
+      border-radius: 13px;
+      border: 1px solid var(--border);
+      background: var(--card2);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 16px;
+      touch-action: manipulation;
+    }
+    input[type="text"]:focus, input[type="password"]:focus {
+      outline: none;
+      border-color: var(--emerald);
+    }
+    .toast {
+      background: rgba(16, 185, 129, 0.14);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      color: #6EE7B7;
+      padding: 12px 14px;
+      border-radius: 14px;
+      margin-bottom: 14px;
+      font-size: 13.5px;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+    .toast.error {
+      background: rgba(227, 26, 33, 0.16);
+      border-color: rgba(227, 26, 33, 0.5);
+      color: #FCA5A5;
+    }
+    .hint {
+      font-size: 11.5px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 8px;
+      line-height: 1.5;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .hidden {
+      display: none !important;
+    }
+    @media (max-width: 380px) {
+      .app-title { font-size: 13px; }
+      .clock { display: none; }
+      .card { padding: 15px; border-radius: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="topbar">
+      <div class="brand-wrap">
+        <img class="brand-icon" src="./img/refinado.png" alt="SvS">
+        <div class="app-title" id="t-app-title">⚡ SvS · Admin</div>
+      </div>
+      <div class="topbar-right">
+        <div class="lang-switch">
+          <button type="button" class="lang-btn active" id="btn-es" onclick="setLang('es')">ES</button>
+          <button type="button" class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+        </div>
+        <div class="clock" id="utcClock">UTC --:--:--</div>
+      </div>
+    </div>
+
+    <div class="toast hidden" id="toastBox"></div>
+
+    <!-- VISTA 1: ACCESO POR CONTRASEÑA -->
+    <div id="loginView" class="card login-card">
+      <img class="login-logo" src="./img/refinado.png" alt="Logo">
+      <h1 class="login-title" id="t-login-title">Panel de Administración</h1>
+      <p class="login-sub" id="t-login-sub">Introduce la clave del cuestionario que deseas gestionar.</p>
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <input type="password" id="pwdInput" autocomplete="current-password" placeholder="••••••••••••" required>
+        <button type="submit" class="btn btn-green" id="btnLogin" style="margin-top: 14px; margin-bottom: 0;">🔓 Entrar al Panel</button>
+      </form>
+    </div>
+
+    <!-- VISTA 2: PANEL DE CONTROL DEL CUESTIONARIO ACTIVO -->
+    <div id="panelView" class="hidden">
+      <div class="card">
+        <div class="status-row">
+          <span class="badge badge-closed" id="statusBadge">—</span>
+          <div class="inscritos-box"><span id="t-enrolled-lbl">Inscritos</span>: <b id="val-enrolled">0</b></div>
+        </div>
+        <div class="meta-grid">
+          <div><b id="t-open-lbl">Apertura UTC:</b> <span id="val-open">—</span></div>
+          <div><b id="t-close-lbl">Cierre UTC:</b> <span id="val-close">—</span></div>
+          <div><b id="t-auto-lbl">Auto-asignación:</b> <span id="val-auto">—</span></div>
+        </div>
+        <a target="_blank" rel="noopener" class="btn btn-sheet" id="btn-sheet" href="#" style="margin-top: 12px; margin-bottom: 0;">📄 Abrir Hoja de Cálculo / Cuadrante</a>
+      </div>
+
+      <div class="card">
+        <div class="section-label" id="t-sec-quick">Acciones rápidas</div>
+        <button type="button" class="btn btn-blue" id="btn-assign" onclick="runCmd('asignar', this)">📊 Ejecutar Asignación Horaria</button>
+        <button type="button" class="btn btn-green" id="btn-open-now" onclick="runCmd('abrir_ya', this)">🟢 Abrir Formulario Ahora</button>
+        <button type="button" class="btn btn-red" id="btn-close-now" onclick="runCmd('cerrar', this)">🔴 Cerrar Formulario Ahora</button>
+      </div>
+
+      <div class="card">
+        <div class="section-label" id="t-sec-sched">Programación automática UTC</div>
+        <form onsubmit="handleSchedule(event)">
+          <label for="apInput" id="lbl-ap">Apertura UTC (YYYY-MM-DD HH:mm)</label>
+          <input id="apInput" type="text" inputmode="text" autocapitalize="off" autocorrect="off" placeholder="2026-11-25 00:00">
+          <label for="ciInput" id="lbl-ci">Cierre UTC (YYYY-MM-DD HH:mm)</label>
+          <input id="ciInput" type="text" inputmode="text" autocapitalize="off" autocorrect="off" placeholder="2026-11-29 17:00">
+          <button type="submit" class="btn btn-dark" id="btn-save-sched" style="margin-top: 14px; margin-bottom: 0;">🕒 Guardar Horario Programado</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <div class="section-label" id="t-sec-maint">Mantenimiento</div>
+        <button type="button" class="btn btn-danger" id="btn-reset" onclick="handleReset(this)">🗑️ Archivar y Limpiar Registros</button>
+        <button type="button" class="btn btn-logout" id="btn-logout" onclick="logout()" style="margin-top: 10px; margin-bottom: 0;">🔒 Cambiar Cuestionario / Salir</button>
+      </div>
+
+      <div class="hint" id="t-hint">Consejo en iPhone: toca <b>Compartir → Añadir a pantalla de inicio</b> para usarla como app.</div>
+    </div>
+  </div>
+
+  <script>
+    // Pega aquí tu URL /exec de Google Apps Script (sin claves)
+    const SCRIPT_URL = "PEGA_AQUI_TU_URL_DE_APPS_SCRIPT_EXEC";
+
+    const I18N = {
+      es: {
+        defaultTitle: "⚡ SvS · Admin",
+        loginTitle: "Panel de Administración",
+        loginSub: "Introduce la clave del cuestionario que deseas gestionar.",
+        pwdPlaceholder: "Contraseña de acceso",
+        loginBtn: "🔓 Entrar al Panel",
+        verifying: "⏳ Verificando...",
+        invalidPwd: "❌ Contraseña incorrecta. Acceso denegado.",
+        connError: "⚠️ Error de conexión con el servidor. Revisa tu conexión o la URL del script.",
+        enrolled: "Inscritos",
+        openLbl: "Apertura UTC:",
+        closeLbl: "Cierre UTC:",
+        autoLbl: "Auto-asignación:",
+        notSet: "No definida",
+        sheet: "📄 Abrir Hoja de Cálculo / Cuadrante",
+        secQuick: "Acciones rápidas",
+        assign: "📊 Ejecutar Asignación Horaria",
+        openNow: "🟢 Abrir Formulario Ahora",
+        closeNow: "🔴 Cerrar Formulario Ahora",
+        secSched: "Programación automática UTC",
+        lblAp: "Apertura UTC (YYYY-MM-DD HH:mm)",
+        lblCi: "Cierre UTC (YYYY-MM-DD HH:mm)",
+        saveSched: "🕒 Guardar Horario Programado",
+        secMaint: "Mantenimiento",
+        reset: "🗑️ Archivar y Limpiar Registros",
+        logout: "🔒 Cambiar Cuestionario / Salir",
+        confirmReset: "¿Archivar los registros actuales y dejar la tabla vacía en estado CERRADO?",
+        processing: "⏳ Procesando...",
+        hint: "Consejo en iPhone: toca <b>Compartir → Añadir a pantalla de inicio</b> para usarla como app.",
+        states: { ABIERTO: "ABIERTO", CERRADO: "CERRADO", NO_ABIERTO: "NO ABIERTO" },
+        msgs: {
+          assigned_ok: "✅ Cuadrante_Final generado y actualizado con éxito.",
+          assigned_empty: "⚠️ No hay registros suficientes en la hoja Registros.",
+          closed_ok: "🔴 Convocatoria CERRADA manualmente.",
+          opened_ok: "🟢 Formulario ABIERTO inmediatamente.",
+          scheduled_ok: (a, c) => "🕒 Horario UTC actualizado: " + (a || "Sin inicio") + " → " + (c || "Sin fin"),
+          reset_ok: "🗑️ Registros archivados y tabla limpia (estado: CERRADO)."
+        }
+      },
+      en: {
+        defaultTitle: "⚡ SvS · Admin",
+        loginTitle: "Admin Control Panel",
+        loginSub: "Enter the password for the questionnaire you want to manage.",
+        pwdPlaceholder: "Access password",
+        loginBtn: "🔓 Enter Panel",
+        verifying: "⏳ Verifying...",
+        invalidPwd: "❌ Invalid password. Access denied.",
+        connError: "⚠️ Server connection error. Check your network or script URL.",
+        enrolled: "Sign-ups",
+        openLbl: "UTC Open:",
+        closeLbl: "UTC Close:",
+        autoLbl: "Auto-assign:",
+        notSet: "Not set",
+        sheet: "📄 Open Spreadsheet / Final Schedule",
+        secQuick: "Quick Actions",
+        assign: "📊 Run Schedule Assignment",
+        openNow: "🟢 Open Form Now",
+        closeNow: "🔴 Close Form Now",
+        secSched: "UTC Auto-Schedule",
+        lblAp: "UTC Open (YYYY-MM-DD HH:mm)",
+        lblCi: "UTC Close (YYYY-MM-DD HH:mm)",
+        saveSched: "🕒 Save Scheduled Times",
+        secMaint: "Maintenance",
+        reset: "🗑️ Archive & Clear Sign-ups",
+        logout: "🔒 Switch Questionnaire / Log Out",
+        confirmReset: "Archive current sign-ups and leave the sheet empty in CLOSED state?",
+        processing: "⏳ Processing...",
+        hint: "iPhone tip: tap <b>Share → Add to Home Screen</b> to use it as a standalone app.",
+        states: { ABIERTO: "OPEN", CERRADO: "CLOSED", NO_ABIERTO: "NOT OPEN YET" },
+        msgs: {
+          assigned_ok: "✅ Final Schedule generated and updated successfully.",
+          assigned_empty: "⚠️ Not enough sign-ups in the Registros sheet.",
+          closed_ok: "🔴 Sign-ups manually CLOSED.",
+          opened_ok: "🟢 Form OPENED immediately.",
+          scheduled_ok: (a, c) => "🕒 UTC schedule updated: " + (a || "No start") + " → " + (c || "No end"),
+          reset_ok: "🗑️ Sign-ups archived and sheet cleared (state: CLOSED)."
+        }
+      }
+    };
+
+    let curLang = "es";
+    let sessionKey = "";
+    let lastData = null;
+
+    function showToast(text, isError = false) {
+      const box = document.getElementById("toastBox");
+      if (!text) {
+        box.classList.add("hidden");
+        return;
+      }
+      box.textContent = text;
+      box.classList.toggle("error", isError);
+      box.classList.remove("hidden");
+    }
+
+    function setLang(lang) {
+      curLang = lang === "en" ? "en" : "es";
+      try { localStorage.setItem("svs_admin_lang", curLang); } catch (e) {}
+      document.documentElement.lang = curLang;
+      document.getElementById("btn-es").classList.toggle("active", curLang === "es");
+      document.getElementById("btn-en").classList.toggle("active", curLang === "en");
+
+      const d = I18N[curLang];
+      document.getElementById("t-login-title").textContent = d.loginTitle;
+      document.getElementById("t-login-sub").textContent = d.loginSub;
+      document.getElementById("pwdInput").placeholder = d.pwdPlaceholder;
+      document.getElementById("btnLogin").textContent = d.loginBtn;
+
+      document.getElementById("t-enrolled-lbl").textContent = d.enrolled;
+      document.getElementById("t-open-lbl").textContent = d.openLbl;
+      document.getElementById("t-close-lbl").textContent = d.closeLbl;
+      document.getElementById("t-auto-lbl").textContent = d.autoLbl;
+      document.getElementById("btn-sheet").textContent = d.sheet;
+      document.getElementById("t-sec-quick").textContent = d.secQuick;
+      document.getElementById("btn-assign").textContent = d.assign;
+      document.getElementById("btn-open-now").textContent = d.openNow;
+      document.getElementById("btn-close-now").textContent = d.closeNow;
+      document.getElementById("t-sec-sched").textContent = d.secSched;
+      document.getElementById("lbl-ap").textContent = d.lblAp;
+      document.getElementById("lbl-ci").textContent = d.lblCi;
+      document.getElementById("btn-save-sched").textContent = d.saveSched;
+      document.getElementById("t-sec-maint").textContent = d.secMaint;
+      document.getElementById("btn-reset").textContent = d.reset;
+      document.getElementById("btn-logout").textContent = d.logout;
+      document.getElementById("t-hint").innerHTML = d.hint;
+
+      if (lastData) {
+        renderPanel(lastData, false);
+      } else {
+        document.getElementById("t-app-title").textContent = d.defaultTitle;
+      }
+    }
+
+    async function callAdminApi(payload) {
+      const res = await fetch(SCRIPT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(Object.assign({ tipo: "admin", clave: sessionKey }, payload))
+      });
+      return await res.json();
+    }
+
+    function renderPanel(data, updateInputs = true) {
+      lastData = data;
+      const d = I18N[curLang];
+
+      document.getElementById("t-app-title").textContent = "⚡ " + (data.modulo?.nombre || "SvS");
+      document.getElementById("val-enrolled").textContent = data.inscritos ?? 0;
+      document.getElementById("val-open").textContent = data.apertura || d.notSet;
+      document.getElementById("val-close").textContent = data.cierre || d.notSet;
+      document.getElementById("val-auto").textContent = data.autoAsignacion || "—";
+
+      const sheetBtn = document.getElementById("btn-sheet");
+      if (data.modulo?.sheetUrl) {
+        sheetBtn.href = data.modulo.sheetUrl;
+      }
+
+      const badge = document.getElementById("statusBadge");
+      badge.className = "badge " + (
+        data.estado === "ABIERTO" ? "badge-open" :
+        data.estado === "NO_ABIERTO" ? "badge-pending" : "badge-closed"
+      );
+      badge.textContent = d.states[data.estado] || data.estado;
+
+      if (updateInputs) {
+        document.getElementById("apInput").value = data.apertura || "";
+        document.getElementById("ciInput").value = data.cierre || "";
+      }
+
+      if (data.msgKey && data.msgKey !== "none" && d.msgs[data.msgKey]) {
+        const msgVal = d.msgs[data.msgKey];
+        showToast(typeof msgVal === "function" ? msgVal(data.extra1, data.extra2) : msgVal, false);
+      }
+    }
+
+    async function handleLogin(ev) {
+      ev.preventDefault();
+      const btn = document.getElementById("btnLogin");
+      const pwd = document.getElementById("pwdInput").value.trim();
+      if (!pwd) return;
+
+      btn.disabled = true;
+      btn.textContent = I18N[curLang].verifying;
+      showToast("");
+
+      try {
+        sessionKey = pwd;
+        const data = await callAdminApi({ cmd: "status" });
+
+        if (data.status === "unauthorized") {
+          sessionKey = "";
+          showToast(I18N[curLang].invalidPwd, true);
+        } else if (data.status === "success") {
+          try { sessionStorage.setItem("svs_session_key", sessionKey); } catch (e) {}
+          document.getElementById("pwdInput").value = "";
+          document.getElementById("loginView").classList.add("hidden");
+          document.getElementById("panelView").classList.remove("hidden");
+          renderPanel(data, true);
+        } else {
+          sessionKey = "";
+          showToast(data.message || I18N[curLang].connError, true);
+        }
+      } catch (err) {
+        sessionKey = "";
+        showToast(I18N[curLang].connError, true);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = I18N[curLang].loginBtn;
+      }
+    }
+
+    async function runCmd(cmd, btnEl, extraPayload = {}) {
+      const originalText = btnEl.textContent;
+      btnEl.disabled = true;
+      btnEl.textContent = I18N[curLang].processing;
+      showToast("");
+
+      try {
+        const data = await callAdminApi(Object.assign({ cmd }, extraPayload));
+        if (data.status === "unauthorized") {
+          logout();
+          showToast(I18N[curLang].invalidPwd, true);
+        } else if (data.status === "success") {
+          renderPanel(data, true);
+        } else {
+          showToast(data.message || I18N[curLang].connError, true);
+        }
+      } catch (err) {
+        showToast(I18N[curLang].connError, true);
+      } finally {
+        btnEl.disabled = false;
+        btnEl.textContent = originalText;
+      }
+    }
+
+    function handleSchedule(ev) {
+      ev.preventDefault();
+      const btn = document.getElementById("btn-save-sched");
+      const ap = document.getElementById("apInput").value.trim();
+      const ci = document.getElementById("ciInput").value.trim();
+      runCmd("programar", btn, { ap, ci });
+    }
+
+    function handleReset(btn) {
+      if (!confirm(I18N[curLang].confirmReset)) return;
+      runCmd("nuevo", btn);
+    }
+
+    function logout() {
+      sessionKey = "";
+      lastData = null;
+      try { sessionStorage.removeItem("svs_session_key"); } catch (e) {}
+      document.getElementById("panelView").classList.add("hidden");
+      document.getElementById("loginView").classList.remove("hidden");
+      document.getElementById("t-app-title").textContent = I18N[curLang].defaultTitle;
+      showToast("");
+    }
+
+    function tickUtc() {
+      const d = new Date();
+      const p = n => (n < 10 ? "0" + n : "" + n);
+      const el = document.getElementById("utcClock");
+      if (el) el.textContent = "UTC " + p(d.getUTCHours()) + ":" + p(d.getUTCMinutes()) + ":" + p(d.getUTCSeconds());
+    }
+
+    (async function init() {
+      try {
+        const savedLang = localStorage.getItem("svs_admin_lang");
+        if (savedLang) curLang = savedLang;
+      } catch (e) {}
+      setLang(curLang);
+      tickUtc();
+      setInterval(tickUtc, 1000);
+
+      try {
+        const savedSession = sessionStorage.getItem("svs_session_key");
+        if (savedSession) {
+          sessionKey = savedSession;
+          const data = await callAdminApi({ cmd: "status" });
+          if (data.status === "success") {
+            document.getElementById("loginView").classList.add("hidden");
+            document.getElementById("panelView").classList.remove("hidden");
+            renderPanel(data, true);
+          } else {
+            sessionStorage.removeItem("svs_session_key");
+            sessionKey = "";
+          }
+        }
+      } catch (e) {}
+    })();
+  </script>
+</body>
+</html>
