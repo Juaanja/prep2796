@@ -1076,18 +1076,14 @@
       languages.forEach(l => {
         const btn = document.getElementById(`lang-${l}`);
         if (btn) {
-          btn.className = (l === lang) 
-            ? "px-2 py-1 text-xs rounded font-bold transition bg-[#10B981] text-[#04130B]" 
-            : "px-2 py-1 text-xs rounded font-bold transition text-[#8AB8A0] hover:text-white hover:bg-[#12291E]";
+          btn.className = (l === lang)
+            ? "px-2 py-1 text-xs rounded font-bold transition bg-[#E31A21] text-white"
+            : "px-2 py-1 text-xs rounded font-bold transition text-[#A88B92] hover:text-white";
         }
       });
 
       populateResourceSelectors();
       populateTimeIntervalSelectors();
-
-      if (triggeredByUser) {
-        showUtcModal(true);
-      }
     }
 
     function syncAllDays() {
