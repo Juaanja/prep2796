@@ -394,7 +394,6 @@
   </div>
 
   <script>
-   // Pon aquí las URLs /exec de ambos scripts (SvS 2796 y State 2889)
     const SCRIPT_URLS = [
       "https://script.google.com/macros/s/AKfycbxEHkLQcKmAsp2fnhO6zkMwbCeX42eAfYsT4E6b5ejWxQoHcW00gkxEaGk7gJXgAiKZWA/exec",
       "https://script.google.com/macros/s/AKfycbylv62TphYMX5NexroRC2TyUYFJDTDEwhfpJFueSh6DcvTy0aLMBgPsw1-KsQPg-CyOZg/exec"
@@ -606,15 +605,6 @@
       } else {
         document.getElementById("t-app-title").textContent = d.defaultTitle;
       }
-    }
-
-    async function callAdminApi(payload) {
-      const res = await fetch(SCRIPT_URL, {
-        method: "POST",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(Object.assign({ tipo: "admin", clave: sessionKey }, payload))
-      });
-      return await res.json();
     }
 
     function renderPanel(data, updateInputs = true) {
