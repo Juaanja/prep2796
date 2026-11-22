@@ -394,8 +394,85 @@
   </div>
 
   <script>
-    // Pega aquí tu URL /exec de Google Apps Script (sin claves)
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxEHkLQcKmAsp2fnhO6zkMwbCeX42eAfYsT4E6b5ejWxQoHcW00gkxEaGk7gJXgAiKZWA/exec";
+   // Pon aquí las URLs /exec de ambos scripts (SvS 2796 y State 2889)
+    const SCRIPT_URLS = [
+      "https://script.google.com/macros/s/AKfycbxEHkLQcKmAsp2fnhO6zkMwbCeX42eAfYsT4E6b5ejWxQoHcW00gkxEaGk7gJXgAiKZWA/exec",
+      "https://script.google.com/macros/s/AKfycbylv62TphYMX5NexroRC2TyUYFJDTDEwhfpJFueSh6DcvTy0aLMBgPsw1-KsQPg-CyOZg/exec"
+    ];
+
+    let activeScriptUrl = "";
+
+    function querySingleScript(baseUrl, payload) {
+      return new Promise((resolve, reject) => {
+        const cbName = "svsAdminCb_" + Date.now() + "_" + Math.floor(Math.random() * 10000);
+        const script = document.createElement("script");
+        const params = new URLSearchParams();
+        params.set("tipo", "admin");
+        params.set("clave", sessionKey);
+        params.set("callback", cbName);
+
+        Object.keys(payload || {}).forEach(k => {
+          if (payload[k] !== undefined && payload[k] !== null) {
+            params.set(k, String(payload[k]));
+          }
+        });
+
+        const timer = setTimeout(() => {
+          cleanup();
+          reject(new Error("Timeout"));
+        }, 15000);
+
+        function cleanup() {
+          clearTimeout(timer);
+          delete window[cbName];
+          if (script.parentNode) script.parentNode.removeChild(script);
+        }
+
+        window[cbName] = function(data) {
+          cleanup();
+          resolve(data);
+        };
+
+        script.onerror = function() {
+          cleanup();
+          reject(new Error("Script load error"));
+        };
+
+        script.src = baseUrl + (baseUrl.includes("?") ? "&" : "?") + params.toString();
+        document.body.appendChild(script);
+      });
+    }
+
+    async function callAdminApi(payload) {
+      if (activeScriptUrl) {
+        return await querySingleScript(activeScriptUrl, payload);
+      }
+
+      let lastUnauthorized = null;
+      let lastError = null;
+
+      for (let i = 0; i < SCRIPT_URLS.length; i++) {
+        const url = SCRIPT_URLS[i];
+        if (!url || url.indexOf("PEGA_AQUI_") === 0) continue;
+        try {
+          const data = await querySingleScript(url, payload);
+          if (data && data.status === "success") {
+            activeScriptUrl = url;
+            return data;
+          }
+          if (data && data.status === "unauthorized") {
+            lastUnauthorized = data;
+          } else {
+            lastError = new Error(data?.message || "Server error");
+          }
+        } catch (err) {
+          lastError = err;
+        }
+      }
+
+      if (lastUnauthorized) return lastUnauthorized;
+      throw lastError || new Error("No script URL configured");
+    }
 
     const I18N = {
       es: {
@@ -648,6 +725,7 @@
 
     function logout() {
       sessionKey = "";
+      activeScriptUrl = "";
       lastData = null;
       try { sessionStorage.removeItem("svs_session_key"); } catch (e) {}
       document.getElementById("panelView").classList.add("hidden");
